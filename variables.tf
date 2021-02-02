@@ -17,7 +17,7 @@ variable "venom_vpn_preshared_key" {
 
 variable "aws_region" {
   type        = string
-  description = "The AWS region where the shared services account is to be created (e.g. \"us-east-1\")."
+  description = "The AWS region where the Shared Services account resides (e.g. \"us-east-1\")."
   default     = "us-east-1"
 }
 
