@@ -2,38 +2,26 @@
 
 [![GitHub Build Status](https://github.com/cisagov/cool-sharedservices-venom/workflows/build/badge.svg)](https://github.com/cisagov/cool-sharedservices-venom/actions)
 
-This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) [Terraform
-module](https://www.terraform.io/docs/modules/index.html) GitHub
-repository started.  This skeleton project contains [licensing
-information](LICENSE), as well as [pre-commit
-hooks](https://pre-commit.com) and
-[GitHub Actions](https://github.com/features/actions) configurations
-appropriate for the major languages that we use.
+This is a Terraform deployment for creating the site-to-site VPN
+tunnel between the COOL and the VENOM environment in the COOL Shared
+Services account.  This deployment should be laid down on top of
+[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking).
 
-See [here](https://www.terraform.io/docs/modules/index.html) for more
-details on Terraform modules and the standard module structure.
+Note that this deployment does not need to attach an additional policy
+to the provisioning role; all necessary permissions have already been
+added by the policy attached in the
+[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking)
+deployment.
 
-## Usage ##
+## Pre-requisites ##
 
-```hcl
-module "example" {
-  source = "github.com/cisagov/cool-sharedservices-venom"
-
-  aws_region            = "us-west-1"
-  aws_availability_zone = "b"
-  subnet_id             = "subnet-0123456789abcdef0"
-
-  tags = {
-    Key1 = "Value1"
-    Key2 = "Value2"
-  }
-}
-```
-
-## Examples ##
-
-* [Deploying into the default VPC](https://github.com/cisagov/cool-sharedservices-venom/tree/develop/examples/default_vpc)
+- [Terraform](https://www.terraform.io/) installed on your system.
+- An accessible AWS S3 bucket to store Terraform state
+  (specified in [backend.tf](backend.tf)).
+- An accessible AWS DynamoDB database to store the Terraform state lock
+  (specified in [backend.tf](backend.tf)).
+- Access to all of the Terraform remote states specified in
+  [remote_states.tf](remote_states.tf).
 
 ## Requirements ##
 
@@ -47,39 +35,29 @@ module "example" {
 | Name | Version |
 |------|---------|
 | aws | ~> 3.0 |
+| aws.sharedservicesprovisionaccount | ~> 3.0 |
+| terraform | n/a |
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| ami_owner_account_id | The ID of the AWS account that owns the Example AMI, or "self" if the AMI is owned by the same account as the provisioner. | `string` | `self` | no |
-| aws_availability_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.) | `string` | `a` | no |
-| aws_region | The AWS region to deploy into (e.g. us-east-1) | `string` | `us-east-1` | no |
-| subnet_id | The ID of the AWS subnet to deploy into (e.g. subnet-0123456789abcdef0) | `string` | n/a | yes |
-| tags | Tags to apply to all AWS resources created | `map(string)` | `{}` | no |
+| aws_region | The AWS region where the shared services account is to be created (e.g. "us-east-1"). | `string` | `us-east-1` | no |
+| tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
+| venom_vpn_preshared_key | The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and VENOM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. "abcdefghijklmnopqrstuvwxyz0123456789"). | `string` | n/a | yes |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
-| arn | The EC2 instance ARN |
-| availability_zone | The AZ where the EC2 instance is deployed |
-| id | The EC2 instance ID |
-| private_ip | The private IP of the EC2 instance |
-| subnet_id | The ID of the subnet where the EC2 instance is deployed |
+| venom_customer_gateway | The gateway for the site-to-site VPN connection to VENOM. |
+| venom_vpn_connection | The site-to-site VPN connection to VENOM. |
 
 ## Notes ##
 
-Running `pre-commit` requires running `terraform init` in every directory that
-contains Terraform code. In this repository, these are the main directory and
-every directory under `examples/`.
-
-## New Repositories from a Skeleton ##
-
-Please see our [Project Setup guide](https://github.com/cisagov/development-guide/tree/develop/project_setup)
-for step-by-step instructions on how to start a new repository from
-a skeleton. This will save you time and effort when configuring a
-new repository!
+Running `pre-commit` requires running `terraform init` in every
+directory that contains Terraform code. In this repository, this is
+only the main directory.
 
 ## Contributing ##
 
