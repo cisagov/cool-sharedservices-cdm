@@ -14,7 +14,7 @@ data "aws_caller_identity" "sharedservices" {
 }
 
 # ------------------------------------------------------------------------------
-# Retrieve the information for all accouts in the organization.  This
+# Retrieve the information for all accounts in the organization.  This
 # is used to lookup account IDs.
 # ------------------------------------------------------------------------------
 data "aws_organizations_organization" "cool" {
