@@ -6,7 +6,7 @@ resource "aws_customer_gateway" "venom" {
   provider = aws.sharedservicesprovisionaccount
 
   bgp_asn    = 65000 # Unused
-  ip_address = "111.111.111.111"
+  ip_address = var.venom_tunnel_ip
   tags = merge(
     var.tags,
     {

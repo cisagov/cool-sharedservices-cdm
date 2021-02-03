@@ -4,9 +4,14 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
+variable "venom_tunnel_ip" {
+  type        = string
+  description = "The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. \"100.200.75.25\")"
+}
+
 variable "venom_vpn_preshared_key" {
   type        = string
-  description = "The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and VENOM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. \"abcdefghijklmnopqrstuvwxyz0123456789\")."
+  description = "The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and VENOM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. \"abcdefghijklmnopqrstuvwxyz01234567._\")."
 }
 
 # ------------------------------------------------------------------------------
