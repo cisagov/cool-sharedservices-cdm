@@ -8,6 +8,12 @@
 resource "aws_ec2_transit_gateway_route_table" "venom" {
   provider = aws.sharedservicesprovisionaccount
 
+  tags = merge(
+    var.tags,
+    {
+      "Name" = "VENOM s2s VPN route table"
+    },
+  )
   transit_gateway_id = data.terraform_remote_state.networking.outputs.transit_gateway.id
 }
 
