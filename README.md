@@ -30,13 +30,16 @@ deployment.
 |------|---------|
 | terraform | ~> 0.12.0 |
 | aws | ~> 3.0 |
+| null | ~> 3.0 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
 | aws | ~> 3.0 |
+| aws.organizationsreadonly | ~> 3.0 |
 | aws.sharedservicesprovisionaccount | ~> 3.0 |
+| null | ~> 3.0 |
 | terraform | n/a |
 
 ## Inputs ##
@@ -53,6 +56,8 @@ deployment.
 | Name | Description |
 |------|-------------|
 | venom_customer_gateway | The gateway for the site-to-site VPN connection to VENOM. |
+| venom_tgw_route_table | The custom Transit Gateway route table for the VENOM VPN connection. |
+| venom_tgw_route_table_association | The association between the VENOM VPN connection and its custom Transit Gateway route table. |
 | venom_vpn_connection | The site-to-site VPN connection to VENOM. |
 
 ## Notes ##
