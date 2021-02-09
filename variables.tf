@@ -4,6 +4,11 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
+variable "venom_cidrs" {
+  type        = map(string)
+  description = "A map with keys equal to the VENOM CIDR blocks and values equal to a brief description (e.g. {\"10.200.0.0/16\": \"Primary\", \"10.201.0.0/16\": \"Secondary\"})."
+}
+
 variable "venom_tunnel_ip" {
   type        = string
   description = "The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. \"100.200.75.25\")"
@@ -24,6 +29,24 @@ variable "aws_region" {
   type        = string
   description = "The AWS region where the Shared Services account resides (e.g. \"us-east-1\")."
   default     = "us-east-1"
+}
+
+variable "provisionaccount_role_name" {
+  type        = string
+  description = "The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Shared Services account."
+  default     = "ProvisionAccount"
+}
+
+variable "provisionvenom_policy_description" {
+  type        = string
+  description = "The description to associate with the IAM policy that allows provisioning of the VENOM layer in the Shared Services account."
+  default     = "Allows provisioning of the VENOM layer in the Shared Services account."
+}
+
+variable "provisionvenom_policy_name" {
+  type        = string
+  description = "The name to assign the IAM policy that allows provisioning of the VENOM layer in the Shared Services account."
+  default     = "ProvisionVenom"
 }
 
 variable "tags" {
