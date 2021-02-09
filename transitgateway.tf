@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# Associate to the TGW VPN attachment a non-default route table that
+# Associate the TGW VPN attachment to a non-default route table that
 # allows communication to the Shared Services account but nowhere
 # else.  This serves to isolate the VENOM VPN tunnel from other
 # accounts.
