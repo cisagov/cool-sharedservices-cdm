@@ -47,4 +47,43 @@ locals {
   # example, "Shared Services (Production)".
   sharedservices_account_type = length(regexall("\\(([^()]*)\\)", local.sharedservices_account_name)) == 1 ? regex("\\(([^()]*)\\)", local.sharedservices_account_name)[0] : "Unknown"
   workspace_type              = lower(local.sharedservices_account_type)
+
+  #
+  # Helpful lists for defining ACL and security group rules
+  #
+
+  # The ports the VENOM agents use to communicate with the VENOM
+  # environment.
+  venom_ports = {
+    tanium_ingress = {
+      egress = false
+      port   = 17472,
+      proto  = "tcp",
+    },
+    tanium_egress = {
+      egress = true
+      port   = 17472,
+      proto  = "tcp",
+    },
+    tanium_threat_response_ingress = {
+      egress = false
+      port   = 17475,
+      proto  = "tcp",
+    },
+    tanium_threat_response_egress = {
+      egress = true
+      port   = 17475,
+      proto  = "tcp",
+    },
+    tenable_ingress = {
+      egress = false
+      port   = 8834,
+      proto  = "tcp",
+    },
+    tenable_egress = {
+      egress = true
+      port   = 8834,
+      proto  = "tcp",
+    },
+  }
 }

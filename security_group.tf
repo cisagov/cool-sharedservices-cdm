@@ -14,14 +14,14 @@ resource "aws_security_group" "venom" {
   )
 }
 
-# Egress rules
-# resource "aws_security_group_rule" "client_egress" {
-#   for_each = local.ipa_ports
+resource "aws_security_group_rule" "venom" {
+  for_each = local.venom_ports
+  provider = aws.sharedservicesprovisionaccount
 
-#   security_group_id        = aws_security_group.client.id
-#   type                     = "egress"
-#   protocol                 = each.value.proto
-#   source_security_group_id = aws_security_group.server.id
-#   from_port                = each.value.port
-#   to_port                  = each.value.port
-# }
+  security_group_id = aws_security_group.venom.id
+  type              = each.value.egress ? "egress" : "ingress"
+  prefix_list_ids   = [aws_ec2_managed_prefix_list.venom.id]
+  protocol          = each.value.proto
+  from_port         = each.value.port
+  to_port           = each.value.port
+}
