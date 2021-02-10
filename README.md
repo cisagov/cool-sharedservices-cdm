@@ -3,10 +3,14 @@
 [![GitHub Build Status](https://github.com/cisagov/cool-sharedservices-venom/workflows/build/badge.svg)](https://github.com/cisagov/cool-sharedservices-venom/actions)
 
 This is a Terraform deployment for creating the site-to-site VPN
-tunnel between the COOL and the VENOM (Virtual Enterprise
-Network Operations Manager) environment in the COOL Shared
-Services account.  This deployment should be laid down on top of
-[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking).
+tunnel between the COOL and the VENOM (Virtual Enterprise Network
+Operations Manager) environment in the COOL Shared Services account.
+This deployment should be applied immediately after
+[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking),
+and before
+[cisagov/cool-sharedservices-freeipa](https://github.com/cisagov/cool-sharedservices-freeipa)
+or
+[cisagov/cool-sharedservices-openvpn](https://github.com/cisagov/cool-sharedservices-openvpn).
 
 ## Pre-requisites ##
 
