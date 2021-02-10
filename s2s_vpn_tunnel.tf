@@ -20,9 +20,11 @@ resource "aws_vpn_connection" "venom" {
   provider = aws.sharedservicesprovisionaccount
 
   customer_gateway_id = aws_customer_gateway.venom.id
-  # These two resources seem to want a /32, which I do not understand.
-  # It doesn't really matter, since I will define what traffic flows
-  # into the customer gateway via TGW routing tables.
+  # These two resources seem to want a /32, which is incorrect.  See this GitHub issue:
+  # https://github.com/hashicorp/terraform-provider-aws/issues/16879
+  #
+  # This doesn't really matter (I hope), since I will define what
+  # traffic flows into the customer gateway via TGW routing tables.
   #
   # local_ipv4_network_cidr = var.venom_cidrs["East"]
   # remote_ipv4_network_cidr = data.terraform_remote_state.networking.outputs.vpc.cidr_block
