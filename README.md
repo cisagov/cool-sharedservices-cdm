@@ -8,12 +8,6 @@ Network Operations Manager) environment in the COOL Shared
 Services account.  This deployment should be laid down on top of
 [cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking).
 
-Note that this deployment does not need to attach an additional policy
-to the provisioning role; all necessary permissions have already been
-added by the policy attached in the
-[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking)
-deployment.
-
 ## Pre-requisites ##
 
 - [Terraform](https://www.terraform.io/) installed on your system.
