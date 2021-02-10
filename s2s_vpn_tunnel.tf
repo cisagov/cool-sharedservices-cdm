@@ -24,8 +24,8 @@ resource "aws_vpn_connection" "venom" {
   # It doesn't really matter, since I will define what traffic flows
   # into the customer gateway via TGW routing tables.
   #
-  # local_ipv4_network_cidr = "10.240.208.0/21"
-  # remote_ipv4_network_cidr = aws_vpc.the_vpc.cidr_block
+  # local_ipv4_network_cidr = var.venom_cidrs["East"]
+  # remote_ipv4_network_cidr = data.terraform_remote_state.networking.outputs.vpc.cidr_block
   static_routes_only = true
   tags = merge(
     var.tags,
