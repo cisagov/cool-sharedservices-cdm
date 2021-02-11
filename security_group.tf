@@ -1,4 +1,4 @@
-# Security group for instances that run VENOM agents (Tainium and
+# Security group for instances that run VENOM agents (Tanium and
 # Tenable)
 resource "aws_security_group" "venom" {
   provider = aws.sharedservicesprovisionaccount
