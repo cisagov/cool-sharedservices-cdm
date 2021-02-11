@@ -26,6 +26,10 @@ resource "aws_vpn_connection" "venom" {
   # This doesn't really matter (I hope), since I will define what
   # traffic flows into the customer gateway via TGW routing tables.
   #
+  # We should be able to make use of these parameters once this pull
+  # request is approved and merged:
+  # https://github.com/hashicorp/terraform-provider-aws/pull/17573
+  #
   # local_ipv4_network_cidr = var.venom_cidrs["East"]
   # remote_ipv4_network_cidr = data.terraform_remote_state.networking.outputs.vpc.cidr_block
   static_routes_only = true
