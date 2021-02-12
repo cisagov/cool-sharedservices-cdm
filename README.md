@@ -57,6 +57,10 @@ or
 
 | Name | Description |
 |------|-------------|
+| dns_from_venom_security_group | The security group that allows inbound DNS requests from the VENOM environment. |
+| dns_to_venom_security_group | The security group that allows outbound DNS requests to the VENOM environment. |
+| route53_resolver_endpoint_from_venom | The security group that allows inbound DNS requests from the VENOM environment. |
+| route53_resolver_endpoint_to_venom | The security group that allows outbound DNS requests to the VENOM environment. |
 | venom_customer_gateway | The gateway for the site-to-site VPN connection to VENOM. |
 | venom_prefix_list | A prefix list for the VENOM CIDRs. |
 | venom_security_group | A security group that allows for all necessary communications between the VENOM agents and the VENOM CIDRs. |

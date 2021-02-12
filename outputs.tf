@@ -1,3 +1,23 @@
+output "dns_from_venom_security_group" {
+  value       = aws_security_group.dns_from_venom
+  description = "The security group that allows inbound DNS requests from the VENOM environment."
+}
+
+output "dns_to_venom_security_group" {
+  value       = aws_security_group.dns_to_venom
+  description = "The security group that allows outbound DNS requests to the VENOM environment."
+}
+
+output "route53_resolver_endpoint_from_venom" {
+  value       = aws_route53_resolver_endpoint.from_venom
+  description = "The security group that allows inbound DNS requests from the VENOM environment."
+}
+
+output "route53_resolver_endpoint_to_venom" {
+  value       = aws_route53_resolver_endpoint.to_venom
+  description = "The security group that allows outbound DNS requests to the VENOM environment."
+}
+
 output "venom_customer_gateway" {
   value       = aws_customer_gateway.venom
   description = "The gateway for the site-to-site VPN connection to VENOM."
