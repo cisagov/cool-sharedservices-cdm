@@ -14,6 +14,11 @@ variable "venom_dns_ips" {
   description = "The DNS server IPs for the VENOM environment (e.g. [\"100.200.75.25\", \"100.200.100.50\"])."
 }
 
+variable "venom_domains" {
+  type        = list(string)
+  description = "The domains for the VENOM environment (e.g. [\"thulsa.example.com\", \"doom.example.com\", \"222.111.10.in-addr.arpa\"])."
+}
+
 variable "venom_tunnel_ip" {
   type        = string
   description = "The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. \"100.200.75.25\")."
@@ -58,10 +63,4 @@ variable "tags" {
   type        = map(string)
   description = "Tags to apply to all AWS resources created."
   default     = {}
-}
-
-variable "venom_domains" {
-  type        = list(string)
-  description = "The domains for the VENOM environment (e.g. [\"thulsa.example.com\", \"doom.example.com\"])."
-  default     = ["thulsa.example.com", "doom.example.com"]
 }
