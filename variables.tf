@@ -9,9 +9,14 @@ variable "venom_cidrs" {
   description = "A map with keys equal to the VENOM CIDR blocks and values equal to a brief description (e.g. {\"10.200.0.0/16\": \"Primary\", \"10.201.0.0/16\": \"Secondary\"})."
 }
 
+variable "venom_dns_ips" {
+  type        = list(string)
+  description = "The DNS server IPs for the VENOM environment (e.g. [\"100.200.75.25\", \"100.200.100.50\"])."
+}
+
 variable "venom_tunnel_ip" {
   type        = string
-  description = "The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. \"100.200.75.25\")"
+  description = "The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. \"100.200.75.25\")."
 }
 
 variable "venom_vpn_preshared_key" {
@@ -53,4 +58,10 @@ variable "tags" {
   type        = map(string)
   description = "Tags to apply to all AWS resources created."
   default     = {}
+}
+
+variable "venom_domains" {
+  type        = list(string)
+  description = "The domains for the VENOM environment (e.g. [\"venom.cisa.gov\", \"venom.cisa.dhs.gov\"])."
+  default     = ["venom.cisa.gov", "venom.cisa.dhs.gov"]
 }
