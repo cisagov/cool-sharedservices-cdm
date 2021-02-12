@@ -1,21 +1,31 @@
 output "dns_from_venom_security_group" {
   value       = aws_security_group.dns_from_venom
-  description = "The security group that allows inbound DNS requests from the VENOM environment."
+  description = "The security group that allows DNS requests from the VENOM environment."
 }
 
 output "dns_to_venom_security_group" {
   value       = aws_security_group.dns_to_venom
-  description = "The security group that allows outbound DNS requests to the VENOM environment."
+  description = "The security group that allows DNS requests to the VENOM environment."
 }
 
 output "route53_resolver_endpoint_from_venom" {
   value       = aws_route53_resolver_endpoint.from_venom
-  description = "The security group that allows inbound DNS requests from the VENOM environment."
+  description = "The Route53 resolver that allows the VENOM environment to resolve DNS queries in our environment."
 }
 
 output "route53_resolver_endpoint_to_venom" {
   value       = aws_route53_resolver_endpoint.to_venom
-  description = "The security group that allows outbound DNS requests to the VENOM environment."
+  description = "The Route53 resolver that allows us to resolve DNS queries in the VENOM environment."
+}
+
+output "route53_resolver_rules_to_venom" {
+  value       = aws_route53_resolver_rule.to_venom
+  description = "The Route53 resolver rules that allow us to resolve DNS queries in the VENOM environment."
+}
+
+output "route53_resolver_rules_to_venom_ram_shares" {
+  value       = aws_ram_resource_share.to_venom
+  description = "The RAM shares for the Route53 resolver rules that allow us to resolve DNS queries in the VENOM environment."
 }
 
 output "venom_customer_gateway" {

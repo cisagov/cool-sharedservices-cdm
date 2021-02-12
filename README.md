@@ -50,17 +50,21 @@ or
 | provisionvenom_policy_name | The name to assign the IAM policy that allows provisioning of the VENOM layer in the Shared Services account. | `string` | `ProvisionVenom` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
 | venom_cidrs | A map with keys equal to the VENOM CIDR blocks and values equal to a brief description (e.g. {"10.200.0.0/16": "Primary", "10.201.0.0/16": "Secondary"}). | `map(string)` | n/a | yes |
-| venom_tunnel_ip | The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. "100.200.75.25") | `string` | n/a | yes |
+| venom_dns_ips | The DNS server IPs for the VENOM environment (e.g. ["100.200.75.25", "100.200.100.50"]). | `list(string)` | n/a | yes |
+| venom_domains | The domains for the VENOM environment (e.g. ["thulsa.example.com", "doom.example.com"]). | `list(string)` | `["thulsa.example.com", "doom.example.com"]` | no |
+| venom_tunnel_ip | The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. "100.200.75.25"). | `string` | n/a | yes |
 | venom_vpn_preshared_key | The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and VENOM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. "abcdefghijklmnopqrstuvwxyz01234567._"). | `string` | n/a | yes |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
-| dns_from_venom_security_group | The security group that allows inbound DNS requests from the VENOM environment. |
-| dns_to_venom_security_group | The security group that allows outbound DNS requests to the VENOM environment. |
-| route53_resolver_endpoint_from_venom | The security group that allows inbound DNS requests from the VENOM environment. |
-| route53_resolver_endpoint_to_venom | The security group that allows outbound DNS requests to the VENOM environment. |
+| dns_from_venom_security_group | The security group that allows DNS requests from the VENOM environment. |
+| dns_to_venom_security_group | The security group that allows DNS requests to the VENOM environment. |
+| route53_resolver_endpoint_from_venom | The Route53 resolver that allows the VENOM environment to resolve DNS queries in our environment. |
+| route53_resolver_endpoint_to_venom | The Route53 resolver that allows us to resolve DNS queries in the VENOM environment. |
+| route53_resolver_rules_to_venom | The Route53 resolver rules that allow us to resolve DNS queries in the VENOM environment. |
+| route53_resolver_rules_to_venom_ram_shares | The RAM shares for the Route53 resolver rules that allow us to resolve DNS queries in the VENOM environment. |
 | venom_customer_gateway | The gateway for the site-to-site VPN connection to VENOM. |
 | venom_prefix_list | A prefix list for the VENOM CIDRs. |
 | venom_security_group | A security group that allows for all necessary communications between the VENOM agents and the VENOM CIDRs. |
