@@ -20,12 +20,18 @@ resource "aws_vpn_connection" "venom" {
   provider = aws.sharedservicesprovisionaccount
 
   customer_gateway_id = aws_customer_gateway.venom.id
-  # These two resources seem to want a /32, which I do not understand.
-  # It doesn't really matter, since I will define what traffic flows
-  # into the customer gateway via TGW routing tables.
+  # These two resources seem to want a /32, which is incorrect.  See this GitHub issue:
+  # https://github.com/hashicorp/terraform-provider-aws/issues/16879
   #
-  # local_ipv4_network_cidr = "10.240.208.0/21"
-  # remote_ipv4_network_cidr = aws_vpc.the_vpc.cidr_block
+  # This doesn't really matter (I hope), since I will define what
+  # traffic flows into the customer gateway via TGW routing tables.
+  #
+  # We should be able to make use of these parameters once this pull
+  # request is approved and merged:
+  # https://github.com/hashicorp/terraform-provider-aws/pull/17573
+  #
+  # local_ipv4_network_cidr = var.venom_cidrs["East"]
+  # remote_ipv4_network_cidr = data.terraform_remote_state.networking.outputs.vpc.cidr_block
   static_routes_only = true
   tags = merge(
     var.tags,

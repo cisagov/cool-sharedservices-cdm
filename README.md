@@ -3,16 +3,14 @@
 [![GitHub Build Status](https://github.com/cisagov/cool-sharedservices-venom/workflows/build/badge.svg)](https://github.com/cisagov/cool-sharedservices-venom/actions)
 
 This is a Terraform deployment for creating the site-to-site VPN
-tunnel between the COOL and the VENOM (Virtual Enterprise
-Network Operations Manager) environment in the COOL Shared
-Services account.  This deployment should be laid down on top of
-[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking).
-
-Note that this deployment does not need to attach an additional policy
-to the provisioning role; all necessary permissions have already been
-added by the policy attached in the
-[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking)
-deployment.
+tunnel between the COOL and the VENOM (Virtual Enterprise Network
+Operations Manager) environment in the COOL Shared Services account.
+This deployment should be applied immediately after
+[cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking),
+and before
+[cisagov/cool-sharedservices-freeipa](https://github.com/cisagov/cool-sharedservices-freeipa)
+or
+[cisagov/cool-sharedservices-openvpn](https://github.com/cisagov/cool-sharedservices-openvpn).
 
 ## Pre-requisites ##
 
@@ -47,7 +45,11 @@ deployment.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | aws_region | The AWS region where the Shared Services account resides (e.g. "us-east-1"). | `string` | `us-east-1` | no |
+| provisionaccount_role_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Shared Services account. | `string` | `ProvisionAccount` | no |
+| provisionvenom_policy_description | The description to associate with the IAM policy that allows provisioning of the VENOM layer in the Shared Services account. | `string` | `Allows provisioning of the VENOM layer in the Shared Services account.` | no |
+| provisionvenom_policy_name | The name to assign the IAM policy that allows provisioning of the VENOM layer in the Shared Services account. | `string` | `ProvisionVenom` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
+| venom_cidrs | A map with keys equal to the VENOM CIDR blocks and values equal to a brief description (e.g. {"10.200.0.0/16": "Primary", "10.201.0.0/16": "Secondary"}). | `map(string)` | n/a | yes |
 | venom_tunnel_ip | The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. "100.200.75.25") | `string` | n/a | yes |
 | venom_vpn_preshared_key | The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and VENOM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. "abcdefghijklmnopqrstuvwxyz01234567._"). | `string` | n/a | yes |
 
@@ -56,6 +58,8 @@ deployment.
 | Name | Description |
 |------|-------------|
 | venom_customer_gateway | The gateway for the site-to-site VPN connection to VENOM. |
+| venom_prefix_list | A prefix list for the VENOM CIDRs. |
+| venom_security_group | A security group that allows for all necessary communications between the VENOM agents and the VENOM CIDRs. |
 | venom_tgw_route_table | The custom Transit Gateway route table for the VENOM VPN connection. |
 | venom_tgw_route_table_association | The association between the VENOM VPN connection and its custom Transit Gateway route table. |
 | venom_vpn_connection | The site-to-site VPN connection to VENOM. |
