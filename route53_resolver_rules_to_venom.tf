@@ -38,7 +38,7 @@ resource "aws_route53_resolver_rule_association" "to_venom" {
 }
 
 # Create resource shares for the rules.  These will be used by the
-# userservices account.
+# User Services account.
 resource "aws_ram_resource_share" "to_venom" {
   provider = aws.sharedservicesprovisionaccount
   for_each = aws_route53_resolver_rule.to_venom
