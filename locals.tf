@@ -86,4 +86,10 @@ locals {
       proto  = "tcp",
     },
   }
+
+  # Useful when creating some security group or ACL rules
+  tcp_and_udp = [
+    "tcp",
+    "udp",
+  ]
 }
