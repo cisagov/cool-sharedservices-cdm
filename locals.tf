@@ -55,6 +55,16 @@ locals {
   # The ports the VENOM agents use to communicate with the VENOM
   # environment.
   venom_ports = {
+    ping_ingress = {
+      egress = false
+      port   = 8
+      proto  = "icmp"
+    },
+    ping_egress = {
+      egress = true
+      port   = 8
+      proto  = "icmp"
+    },
     tanium_ingress = {
       egress = false
       port   = 17472,
