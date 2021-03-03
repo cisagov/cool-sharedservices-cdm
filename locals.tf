@@ -56,44 +56,64 @@ locals {
   # environment.
   venom_ports = {
     ping_ingress = {
-      egress = false
-      port   = 8
-      proto  = "icmp"
+      egress    = false
+      from_port = 8
+      proto     = "icmp"
+      to_port   = 0
     },
     ping_egress = {
-      egress = true
-      port   = 8
-      proto  = "icmp"
+      egress    = true
+      from_port = 8
+      proto     = "icmp"
+      to_port   = 0
+    },
+    ping_reply_ingress = {
+      egress    = false
+      from_port = 0
+      proto     = "icmp"
+      to_port   = 0
+    },
+    ping_reply_egress = {
+      egress    = true
+      from_port = 0
+      proto     = "icmp"
+      to_port   = 0
     },
     tanium_ingress = {
-      egress = false
-      port   = 17472,
-      proto  = "tcp",
+      egress    = false
+      from_port = 17472
+      proto     = "tcp"
+      to_port   = 17472
     },
     tanium_egress = {
-      egress = true
-      port   = 17472,
-      proto  = "tcp",
+      egress    = true
+      from_port = 17472
+      proto     = "tcp"
+      to_port   = 17472
     },
     tanium_threat_response_ingress = {
-      egress = false
-      port   = 17475,
-      proto  = "tcp",
+      egress    = false
+      from_port = 17475
+      proto     = "tcp"
+      to_port   = 17475
     },
     tanium_threat_response_egress = {
-      egress = true
-      port   = 17475,
-      proto  = "tcp",
+      egress    = true
+      from_port = 17475
+      proto     = "tcp"
+      to_port   = 17475
     },
     tenable_ingress = {
-      egress = false
-      port   = 8834,
-      proto  = "tcp",
+      egress    = false
+      from_port = 8834
+      proto     = "tcp"
+      to_port   = 8834
     },
     tenable_egress = {
-      egress = true
-      port   = 8834,
-      proto  = "tcp",
+      egress    = true
+      from_port = 8834
+      proto     = "tcp"
+      to_port   = 8834
     },
   }
 
