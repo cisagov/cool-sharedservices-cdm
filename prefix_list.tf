@@ -10,8 +10,8 @@ resource "aws_ec2_managed_prefix_list" "venom" {
     for_each = var.venom_cidrs
 
     content {
-      cidr        = entry.key
-      description = entry.value
+      cidr        = entry.value
+      description = entry.key
     }
   }
 
