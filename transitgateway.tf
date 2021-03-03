@@ -26,6 +26,15 @@ resource "aws_ec2_transit_gateway_route" "venom_sharedservices" {
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.venom.id
 }
 
+# Add a route to the VPN to the route table
+resource "aws_ec2_transit_gateway_route" "venom_vpn" {
+  provider = aws.sharedservicesprovisionaccount
+
+  destination_cidr_block         = var.venom_cidrs["East"]
+  transit_gateway_attachment_id  = aws_vpn_connection.venom.transit_gateway_attachment_id
+  transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.venom.id
+}
+
 # Break the association between the transit gateway attachment and the
 # default transit gateway route table.
 #
