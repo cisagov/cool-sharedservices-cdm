@@ -6,7 +6,7 @@
 
 variable "venom_cidrs" {
   type        = map(string)
-  description = "A map with keys equal to the VENOM CIDR blocks and values equal to a brief description (e.g. {\"10.200.0.0/16\": \"Primary\", \"10.201.0.0/16\": \"Secondary\"})."
+  description = "A map with values equal to the VENOM CIDR blocks and keys equal to a brief description (e.g. {\"Primary\": \"10.200.0.0/16\", \"Secondary\": \"10.201.0.0/16\"})."
 }
 
 variable "venom_dns_ips" {
