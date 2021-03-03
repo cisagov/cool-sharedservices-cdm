@@ -49,9 +49,9 @@ or
 | provisionvenom_policy_description | The description to associate with the IAM policy that allows provisioning of the VENOM layer in the Shared Services account. | `string` | `Allows provisioning of the VENOM layer in the Shared Services account.` | no |
 | provisionvenom_policy_name | The name to assign the IAM policy that allows provisioning of the VENOM layer in the Shared Services account. | `string` | `ProvisionVenom` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
-| venom_cidrs | A map with keys equal to the VENOM CIDR blocks and values equal to a brief description (e.g. {"10.200.0.0/16": "Primary", "10.201.0.0/16": "Secondary"}). | `map(string)` | n/a | yes |
+| venom_cidrs | A map with values equal to the VENOM CIDR blocks and keys equal to a brief description (e.g. {"Primary": "10.200.0.0/16", "Secondary": "10.201.0.0/16"}). | `map(string)` | n/a | yes |
 | venom_dns_ips | The DNS server IPs for the VENOM environment (e.g. ["100.200.75.25", "100.200.100.50"]). | `list(string)` | n/a | yes |
-| venom_domains | The domains for the VENOM environment (e.g. ["thulsa.example.com", "doom.example.com"]). | `list(string)` | `["thulsa.example.com", "doom.example.com"]` | no |
+| venom_domains | The domains for the VENOM environment (e.g. ["thulsa.example.com", "doom.example.com", "222.111.10.in-addr.arpa"]). | `list(string)` | n/a | yes |
 | venom_tunnel_ip | The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. "100.200.75.25"). | `string` | n/a | yes |
 | venom_vpn_preshared_key | The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and VENOM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. "abcdefghijklmnopqrstuvwxyz01234567._"). | `string` | n/a | yes |
 
