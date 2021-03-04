@@ -30,7 +30,7 @@ resource "aws_ec2_transit_gateway_route" "venom_sharedservices" {
 resource "aws_ec2_transit_gateway_route" "venom_vpn" {
   provider = aws.sharedservicesprovisionaccount
 
-  destination_cidr_block         = var.venom_cidrs["East"]
+  destination_cidr_block         = var.venom_cidr
   transit_gateway_attachment_id  = aws_vpn_connection.venom.transit_gateway_attachment_id
   transit_gateway_route_table_id = aws_ec2_transit_gateway_route_table.venom.id
 }
@@ -40,7 +40,7 @@ resource "aws_ec2_transit_gateway_route" "venom_vpn" {
 resource "aws_ec2_transit_gateway_route" "sharedservices_vpn" {
   provider = aws.sharedservicesprovisionaccount
 
-  destination_cidr_block         = var.venom_cidrs["East"]
+  destination_cidr_block         = var.venom_cidr
   transit_gateway_attachment_id  = aws_vpn_connection.venom.transit_gateway_attachment_id
   transit_gateway_route_table_id = data.terraform_remote_state.networking.outputs.transit_gateway.association_default_route_table_id
 }

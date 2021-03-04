@@ -4,9 +4,9 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
-variable "venom_cidrs" {
-  type        = map(string)
-  description = "A map with values equal to the VENOM CIDR blocks and keys equal to a brief description (e.g. {\"Primary\": \"10.200.0.0/16\", \"Secondary\": \"10.201.0.0/16\"})."
+variable "venom_cidr" {
+  type        = string
+  description = "The CIDR block on the VENOM end of the site-to-site VPN tunnel (e.g. \"10.201.0.0/16\")."
 }
 
 variable "venom_dns_ips" {
