@@ -9,11 +9,8 @@ data "aws_iam_policy_document" "provisionvenom_policy_doc" {
     actions = [
       "ec2:AuthorizeSecurityGroupEgress",
       "ec2:AuthorizeSecurityGroupIngress",
-      "ec2:CreateManagedPrefixList",
       "ec2:CreateSecurityGroup",
-      "ec2:DeleteManagedPrefixList",
       "ec2:DeleteSecurityGroup",
-      "ec2:ModifyManagedPrefixList",
       "ec2:RevokeSecurityGroupEgress",
       "ec2:RevokeSecurityGroupIngress",
       "ec2:UpdateSecurityGroupRuleDescriptionsEgress",

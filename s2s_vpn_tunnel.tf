@@ -30,7 +30,7 @@ resource "aws_vpn_connection" "venom" {
   # request is approved and merged:
   # https://github.com/hashicorp/terraform-provider-aws/pull/17573
   #
-  # local_ipv4_network_cidr = var.venom_cidrs["East"]
+  # local_ipv4_network_cidr = var.venom_cidr
   # remote_ipv4_network_cidr = data.terraform_remote_state.networking.outputs.vpc.cidr_block
   static_routes_only = true
   tags = merge(
