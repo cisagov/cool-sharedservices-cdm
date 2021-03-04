@@ -24,7 +24,7 @@ resource "aws_security_group_rule" "dns_from_venom" {
 
   security_group_id = aws_security_group.dns_from_venom.id
   type              = "ingress"
-  prefix_list_ids   = [aws_ec2_managed_prefix_list.venom.id]
+  cidr_blocks       = [var.venom_cidr]
   protocol          = each.key
   from_port         = 53
   to_port           = 53

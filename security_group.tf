@@ -20,7 +20,7 @@ resource "aws_security_group_rule" "venom" {
 
   security_group_id = aws_security_group.venom.id
   type              = each.value.egress ? "egress" : "ingress"
-  prefix_list_ids   = [aws_ec2_managed_prefix_list.venom.id]
+  cidr_blocks       = [var.venom_cidr]
   protocol          = each.value.proto
   from_port         = each.value.from_port
   to_port           = each.value.to_port

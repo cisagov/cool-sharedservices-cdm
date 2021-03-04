@@ -49,7 +49,7 @@ or
 | provisionvenom_policy_description | The description to associate with the IAM policy that allows provisioning of the VENOM layer in the Shared Services account. | `string` | `Allows provisioning of the VENOM layer in the Shared Services account.` | no |
 | provisionvenom_policy_name | The name to assign the IAM policy that allows provisioning of the VENOM layer in the Shared Services account. | `string` | `ProvisionVenom` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
-| venom_cidrs | A map with values equal to the VENOM CIDR blocks and keys equal to a brief description (e.g. {"Primary": "10.200.0.0/16", "Secondary": "10.201.0.0/16"}). | `map(string)` | n/a | yes |
+| venom_cidr | The CIDR block on the VENOM end of the site-to-site VPN tunnel (e.g. "10.201.0.0/16"). | `string` | n/a | yes |
 | venom_dns_ips | The DNS server IPs for the VENOM environment (e.g. ["100.200.75.25", "100.200.100.50"]). | `list(string)` | n/a | yes |
 | venom_domains | The domains for the VENOM environment (e.g. ["venom.cisa.gov", "venom.cisa.dhs.gov", "222.111.10.in-addr.arpa"]). | `list(string)` | n/a | yes |
 | venom_tunnel_ip | The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. "100.200.75.25"). | `string` | n/a | yes |
@@ -66,7 +66,6 @@ or
 | route53_resolver_rules_to_venom | The Route53 resolver rules that allow us to resolve DNS queries in the VENOM environment. |
 | route53_resolver_rules_to_venom_ram_shares | The RAM shares for the Route53 resolver rules that allow us to resolve DNS queries in the VENOM environment. |
 | venom_customer_gateway | The gateway for the site-to-site VPN connection to VENOM. |
-| venom_prefix_list | A prefix list for the VENOM CIDRs. |
 | venom_security_group | A security group that allows for all necessary communications between the VENOM agents and the VENOM CIDRs. |
 | venom_tgw_route_table | The custom Transit Gateway route table for the VENOM VPN connection. |
 | venom_tgw_route_table_association | The association between the VENOM VPN connection and its custom Transit Gateway route table. |
