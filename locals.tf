@@ -52,9 +52,9 @@ locals {
   # Helpful lists for defining ACL and security group rules
   #
 
-  # The ports the VENOM agents use to communicate with the VENOM
+  # The ports the CDM agents use to communicate with the CDM
   # environment.
-  venom_ports = {
+  cdm_ports = {
     tanium_ingress = {
       egress    = false
       from_port = 17472

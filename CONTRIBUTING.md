@@ -15,7 +15,7 @@ all of which should be in this repository.
 
 If you want to report a bug or request a new feature, the most direct
 method is to [create an
-issue](https://github.com/cisagov/cool-sharedservices-venom/issues) in this
+issue](https://github.com/cisagov/cool-sharedservices-cdm/issues) in this
 repository.  We recommend that you first search through existing
 issues (both open and closed) to check if your particular issue has
 already been reported.  If it has then you might want to add a comment
@@ -25,7 +25,7 @@ one.
 ## Pull requests ##
 
 If you choose to [submit a pull
-request](https://github.com/cisagov/cool-sharedservices-venom/pulls), you
+request](https://github.com/cisagov/cool-sharedservices-cdm/pulls), you
 will notice that our continuous integration (CI) system runs a fairly
 extensive set of linters and syntax checkers.  Your pull request may
 fail these checks, and that's OK.  If you want you can stop there and
@@ -111,9 +111,9 @@ can create and configure the Python virtual environment with these
 commands:
 
 ```console
-cd cool-sharedservices-venom
-pyenv virtualenv <python_version_to_use> cool-sharedservices-venom
-pyenv local cool-sharedservices-venom
+cd cool-sharedservices-cdm
+pyenv virtualenv <python_version_to_use> cool-sharedservices-cdm
+pyenv local cool-sharedservices-cdm
 pip install --requirement requirements-dev.txt
 ```
 

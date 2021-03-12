@@ -1,25 +1,25 @@
 # ------------------------------------------------------------------------------
-# Create a tunnel to VENOM
+# Create a tunnel to CDM
 # ------------------------------------------------------------------------------
 
-resource "aws_customer_gateway" "venom" {
+resource "aws_customer_gateway" "cdm" {
   provider = aws.sharedservicesprovisionaccount
 
   bgp_asn    = 65000 # Unused
-  ip_address = var.venom_tunnel_ip
+  ip_address = var.cdm_tunnel_ip
   tags = merge(
     var.tags,
     {
-      "Name" = "VENOM site-to-site VPN gateway"
+      "Name" = "CDM site-to-site VPN gateway"
     },
   )
   type = "ipsec.1"
 }
 
-resource "aws_vpn_connection" "venom" {
+resource "aws_vpn_connection" "cdm" {
   provider = aws.sharedservicesprovisionaccount
 
-  customer_gateway_id = aws_customer_gateway.venom.id
+  customer_gateway_id = aws_customer_gateway.cdm.id
   # These two resources seem to want a /32, which is incorrect.  See this GitHub issue:
   # https://github.com/hashicorp/terraform-provider-aws/issues/16879
   #
@@ -30,13 +30,13 @@ resource "aws_vpn_connection" "venom" {
   # request is approved and merged:
   # https://github.com/hashicorp/terraform-provider-aws/pull/17573
   #
-  # local_ipv4_network_cidr = var.venom_cidr
+  # local_ipv4_network_cidr = var.cdm_cidr
   # remote_ipv4_network_cidr = data.terraform_remote_state.networking.outputs.vpc.cidr_block
   static_routes_only = true
   tags = merge(
     var.tags,
     {
-      "Name" = "VENOM site-to-site VPN connection"
+      "Name" = "CDM site-to-site VPN connection"
     },
   )
   transit_gateway_id                   = data.terraform_remote_state.networking.outputs.transit_gateway.id
@@ -50,7 +50,7 @@ resource "aws_vpn_connection" "venom" {
   tunnel1_phase2_encryption_algorithms = ["AES256"]
   tunnel1_phase2_integrity_algorithms  = ["SHA2-384"]
   tunnel1_phase2_lifetime_seconds      = 3600
-  tunnel1_preshared_key                = var.venom_vpn_preshared_key
+  tunnel1_preshared_key                = var.cdm_vpn_preshared_key
   tunnel2_ike_versions                 = ["ikev2"]
   tunnel2_phase1_dh_group_numbers      = [14]
   tunnel2_phase1_encryption_algorithms = ["AES256"]
@@ -60,6 +60,6 @@ resource "aws_vpn_connection" "venom" {
   tunnel2_phase2_encryption_algorithms = ["AES256"]
   tunnel2_phase2_integrity_algorithms  = ["SHA2-384"]
   tunnel2_phase2_lifetime_seconds      = 3600
-  tunnel2_preshared_key                = var.venom_vpn_preshared_key
-  type                                 = aws_customer_gateway.venom.type
+  tunnel2_preshared_key                = var.cdm_vpn_preshared_key
+  type                                 = aws_customer_gateway.cdm.type
 }

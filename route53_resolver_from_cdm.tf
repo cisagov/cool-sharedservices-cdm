@@ -1,36 +1,36 @@
 # ------------------------------------------------------------------------------
-# Create Route53 resolver that allows the VENOM environment to resolve
+# Create Route53 resolver that allows the CDM environment to resolve
 # DNS entries in our environment
 # ------------------------------------------------------------------------------
 
 # Security group for Route53 resolver that allows inbound DNS queries
-# from the VENOM environment.
-resource "aws_security_group" "dns_from_venom" {
+# from the CDM environment.
+resource "aws_security_group" "dns_from_cdm" {
   provider = aws.sharedservicesprovisionaccount
 
   vpc_id = data.terraform_remote_state.networking.outputs.vpc.id
 
-  description = "VENOM DNS - From VENOM"
+  description = "CDM DNS - From CDM"
   tags = merge(
     var.tags,
     {
-      "Name" = "VENOM DNS - From VENOM"
+      "Name" = "CDM DNS - From CDM"
     },
   )
 }
-resource "aws_security_group_rule" "dns_from_venom" {
+resource "aws_security_group_rule" "dns_from_cdm" {
   for_each = toset(local.tcp_and_udp)
   provider = aws.sharedservicesprovisionaccount
 
-  security_group_id = aws_security_group.dns_from_venom.id
+  security_group_id = aws_security_group.dns_from_cdm.id
   type              = "ingress"
-  cidr_blocks       = [var.venom_cidr]
+  cidr_blocks       = [var.cdm_cidr]
   protocol          = each.key
   from_port         = 53
   to_port           = 53
 }
 
-resource "aws_route53_resolver_endpoint" "from_venom" {
+resource "aws_route53_resolver_endpoint" "from_cdm" {
   provider = aws.sharedservicesprovisionaccount
 
   direction = "INBOUND"
@@ -43,14 +43,14 @@ resource "aws_route53_resolver_endpoint" "from_venom" {
     }
   }
 
-  name = "From VENOM"
+  name = "From CDM"
   security_group_ids = [
-    aws_security_group.dns_from_venom.id,
+    aws_security_group.dns_from_cdm.id,
   ]
   tags = merge(
     var.tags,
     {
-      "Name" = "Route53 resolver - from VENOM"
+      "Name" = "Route53 resolver - from CDM"
     },
   )
 }

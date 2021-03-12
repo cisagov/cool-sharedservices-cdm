@@ -4,29 +4,29 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
-variable "venom_cidr" {
+variable "cdm_cidr" {
   type        = string
-  description = "The CIDR block on the VENOM end of the site-to-site VPN tunnel (e.g. \"10.201.0.0/16\")."
+  description = "The CIDR block on the CDM end of the site-to-site VPN tunnel (e.g. \"10.201.0.0/16\")."
 }
 
-variable "venom_dns_ips" {
+variable "cdm_dns_ips" {
   type        = list(string)
-  description = "The DNS server IPs for the VENOM environment (e.g. [\"100.200.75.25\", \"100.200.100.50\"])."
+  description = "The DNS server IPs for the CDM environment (e.g. [\"100.200.75.25\", \"100.200.100.50\"])."
 }
 
-variable "venom_domains" {
+variable "cdm_domains" {
   type        = list(string)
-  description = "The domains for the VENOM environment (e.g. [\"thulsa.example.com\", \"doom.example.com\", \"222.111.10.in-addr.arpa\"])."
+  description = "The domains for the CDM environment (e.g. [\"thulsa.example.com\", \"doom.example.com\", \"222.111.10.in-addr.arpa\"])."
 }
 
-variable "venom_tunnel_ip" {
+variable "cdm_tunnel_ip" {
   type        = string
-  description = "The IP address of the site-to-site VPN tunnel endpoint on the VENOM side (e.g. \"100.200.75.25\")."
+  description = "The IP address of the site-to-site VPN tunnel endpoint on the CDM side (e.g. \"100.200.75.25\")."
 }
 
-variable "venom_vpn_preshared_key" {
+variable "cdm_vpn_preshared_key" {
   type        = string
-  description = "The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and VENOM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. \"abcdefghijklmnopqrstuvwxyz01234567._\")."
+  description = "The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and CDM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. \"abcdefghijklmnopqrstuvwxyz01234567._\")."
 }
 
 # ------------------------------------------------------------------------------
@@ -47,16 +47,16 @@ variable "provisionaccount_role_name" {
   default     = "ProvisionAccount"
 }
 
-variable "provisionvenom_policy_description" {
+variable "provisioncdm_policy_description" {
   type        = string
-  description = "The description to associate with the IAM policy that allows provisioning of the VENOM layer in the Shared Services account."
-  default     = "Allows provisioning of the VENOM layer in the Shared Services account."
+  description = "The description to associate with the IAM policy that allows provisioning of the CDM layer in the Shared Services account."
+  default     = "Allows provisioning of the CDM layer in the Shared Services account."
 }
 
-variable "provisionvenom_policy_name" {
+variable "provisioncdm_policy_name" {
   type        = string
-  description = "The name to assign the IAM policy that allows provisioning of the VENOM layer in the Shared Services account."
-  default     = "ProvisionVenom"
+  description = "The name to assign the IAM policy that allows provisioning of the CDM layer in the Shared Services account."
+  default     = "ProvisionCdm"
 }
 
 variable "tags" {

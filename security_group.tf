@@ -1,26 +1,26 @@
-# Security group for instances that run VENOM agents (Tanium and
+# Security group for instances that run CDM agents (Tanium and
 # Tenable)
-resource "aws_security_group" "venom" {
+resource "aws_security_group" "cdm" {
   provider = aws.sharedservicesprovisionaccount
 
   vpc_id = data.terraform_remote_state.networking.outputs.vpc.id
 
-  description = "VENOM"
+  description = "CDM"
   tags = merge(
     var.tags,
     {
-      "Name" = "VENOM"
+      "Name" = "CDM"
     },
   )
 }
 
-resource "aws_security_group_rule" "venom" {
-  for_each = local.venom_ports
+resource "aws_security_group_rule" "cdm" {
+  for_each = local.cdm_ports
   provider = aws.sharedservicesprovisionaccount
 
-  security_group_id = aws_security_group.venom.id
+  security_group_id = aws_security_group.cdm.id
   type              = each.value.egress ? "egress" : "ingress"
-  cidr_blocks       = [var.venom_cidr]
+  cidr_blocks       = [var.cdm_cidr]
   protocol          = each.value.proto
   from_port         = each.value.from_port
   to_port           = each.value.to_port

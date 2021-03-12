@@ -53,6 +53,6 @@ data "terraform_remote_state" "sharedservices" {
   #
   # Instead, we rely on the name of our current Terraform workspace,
   # which must match the name of one of the workspaces in
-  # cool-sharedservices-venom (e.g. staging, production).
+  # cool-sharedservices-cdm (e.g. staging, production).
   workspace = terraform.workspace
 }
