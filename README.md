@@ -3,9 +3,9 @@
 [![GitHub Build Status](https://github.com/cisagov/cool-sharedservices-cdm/workflows/build/badge.svg)](https://github.com/cisagov/cool-sharedservices-cdm/actions)
 
 This is a Terraform deployment for creating the site-to-site VPN
-tunnel between the COOL and the CDM (Virtual Enterprise Network
-Operations Manager) environment in the COOL Shared Services account.
-This deployment should be applied immediately after
+tunnel between the COOL and the CDM (Continuous Diagnostics and
+Mitigation) environment in the COOL Shared Services account.  This
+deployment should be applied immediately after
 [cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking),
 and before
 [cisagov/cool-sharedservices-freeipa](https://github.com/cisagov/cool-sharedservices-freeipa)
