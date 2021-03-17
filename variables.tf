@@ -16,7 +16,7 @@ variable "cdm_dns_ips" {
 
 variable "cdm_domains" {
   type        = list(string)
-  description = "The domains for the CDM environment (e.g. [\"thulsa.example.com\", \"doom.example.com\", \"222.111.10.in-addr.arpa\"])."
+  description = "The domains for the CDM environment (e.g. [\"thulsa.example.com\", \"doom.example.com\", \"222.111.10.in-addr.arpa\"]).  The first domain listed should be the main CDM domain, as it will be used as an additional search domain for DNS lookups."
 }
 
 variable "cdm_tunnel_ip" {

@@ -1,3 +1,38 @@
+output "cdm_customer_gateway" {
+  value       = aws_customer_gateway.cdm
+  description = "The gateway for the site-to-site VPN connection to CDM."
+}
+
+output "cdm_security_group" {
+  value       = aws_security_group.cdm
+  description = "A security group that allows for all necessary communications between the CDM agents and the CDM CIDRs."
+}
+
+output "cdm_tgw_route_table" {
+  value       = aws_ec2_transit_gateway_route_table.cdm
+  description = "The custom Transit Gateway route table for the CDM VPN connection."
+}
+
+output "cdm_tgw_route_table_association" {
+  value       = aws_ec2_transit_gateway_route_table_association.cdm
+  description = "The association between the CDM VPN connection and its custom Transit Gateway route table."
+}
+
+output "cdm_vpc_dhcp_options" {
+  value       = aws_vpc_dhcp_options.cdm
+  description = "The Shared Services VPC DHCP options.  These are identical to the DHCP options created in cisagov/cool-sharedservices-networking, except that we add the main CDM domain (var.cdm_domains[0]) to the DNS search path."
+}
+
+output "cdm_vpc_dhcp_options_association" {
+  value       = aws_vpc_dhcp_options_association.cdm
+  description = "The association between the Shared Services VPC and the CDM-enhanced DHCP options."
+}
+
+output "cdm_vpn_connection" {
+  value       = aws_vpn_connection.cdm
+  description = "The site-to-site VPN connection to CDM."
+}
+
 output "dns_from_cdm_security_group" {
   value       = aws_security_group.dns_from_cdm
   description = "The security group that allows DNS requests from the CDM environment."
@@ -26,29 +61,4 @@ output "route53_resolver_rules_to_cdm" {
 output "route53_resolver_rules_to_cdm_ram_shares" {
   value       = aws_ram_resource_share.to_cdm
   description = "The RAM shares for the Route53 resolver rules that allow us to resolve DNS queries in the CDM environment."
-}
-
-output "cdm_customer_gateway" {
-  value       = aws_customer_gateway.cdm
-  description = "The gateway for the site-to-site VPN connection to CDM."
-}
-
-output "cdm_security_group" {
-  value       = aws_security_group.cdm
-  description = "A security group that allows for all necessary communications between the CDM agents and the CDM CIDRs."
-}
-
-output "cdm_tgw_route_table" {
-  value       = aws_ec2_transit_gateway_route_table.cdm
-  description = "The custom Transit Gateway route table for the CDM VPN connection."
-}
-
-output "cdm_tgw_route_table_association" {
-  value       = aws_ec2_transit_gateway_route_table_association.cdm
-  description = "The association between the CDM VPN connection and its custom Transit Gateway route table."
-}
-
-output "cdm_vpn_connection" {
-  value       = aws_vpn_connection.cdm
-  description = "The site-to-site VPN connection to CDM."
 }

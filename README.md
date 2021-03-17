@@ -45,31 +45,33 @@ or
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | aws_region | The AWS region where the Shared Services account resides (e.g. "us-east-1"). | `string` | `us-east-1` | no |
+| cdm_cidr | The CIDR block on the CDM end of the site-to-site VPN tunnel (e.g. "10.201.0.0/16"). | `string` | n/a | yes |
+| cdm_dns_ips | The DNS server IPs for the CDM environment (e.g. ["100.200.75.25", "100.200.100.50"]). | `list(string)` | n/a | yes |
+| cdm_domains | The domains for the CDM environment (e.g. ["thulsa.example.com", "doom.example.com", "222.111.10.in-addr.arpa"]).  The first domain listed should be the main CDM domain, as it will be used as an additional search domain for DNS lookups. | `list(string)` | n/a | yes |
+| cdm_tunnel_ip | The IP address of the site-to-site VPN tunnel endpoint on the CDM side (e.g. "100.200.75.25"). | `string` | n/a | yes |
+| cdm_vpn_preshared_key | The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and CDM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. "abcdefghijklmnopqrstuvwxyz01234567._"). | `string` | n/a | yes |
 | provisionaccount_role_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Shared Services account. | `string` | `ProvisionAccount` | no |
 | provisioncdm_policy_description | The description to associate with the IAM policy that allows provisioning of the CDM layer in the Shared Services account. | `string` | `Allows provisioning of the CDM layer in the Shared Services account.` | no |
 | provisioncdm_policy_name | The name to assign the IAM policy that allows provisioning of the CDM layer in the Shared Services account. | `string` | `ProvisionCdm` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
-| cdm_cidr | The CIDR block on the CDM end of the site-to-site VPN tunnel (e.g. "10.201.0.0/16"). | `string` | n/a | yes |
-| cdm_dns_ips | The DNS server IPs for the CDM environment (e.g. ["100.200.75.25", "100.200.100.50"]). | `list(string)` | n/a | yes |
-| cdm_domains | The domains for the CDM environment (e.g. ["thulsa.example.com", "doom.example.com", "222.111.10.in-addr.arpa"]). | `list(string)` | n/a | yes |
-| cdm_tunnel_ip | The IP address of the site-to-site VPN tunnel endpoint on the CDM side (e.g. "100.200.75.25"). | `string` | n/a | yes |
-| cdm_vpn_preshared_key | The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and CDM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. "abcdefghijklmnopqrstuvwxyz01234567._"). | `string` | n/a | yes |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
+| cdm_customer_gateway | The gateway for the site-to-site VPN connection to CDM. |
+| cdm_security_group | A security group that allows for all necessary communications between the CDM agents and the CDM CIDRs. |
+| cdm_tgw_route_table | The custom Transit Gateway route table for the CDM VPN connection. |
+| cdm_tgw_route_table_association | The association between the CDM VPN connection and its custom Transit Gateway route table. |
+| cdm_vpc_dhcp_options | The Shared Services VPC DHCP options.  These are identical to the DHCP options created in cisagov/cool-sharedservices-networking, except that we add the main CDM domain (var.cdm_domains[0]) to the DNS search path. |
+| cdm_vpc_dhcp_options_association | The association between the Shared Services VPC and the CDM-enhanced DHCP options. |
+| cdm_vpn_connection | The site-to-site VPN connection to CDM. |
 | dns_from_cdm_security_group | The security group that allows DNS requests from the CDM environment. |
 | dns_to_cdm_security_group | The security group that allows DNS requests to the CDM environment. |
 | route53_resolver_endpoint_from_cdm | The Route53 resolver that allows the CDM environment to resolve DNS queries in our environment. |
 | route53_resolver_endpoint_to_cdm | The Route53 resolver that allows us to resolve DNS queries in the CDM environment. |
 | route53_resolver_rules_to_cdm | The Route53 resolver rules that allow us to resolve DNS queries in the CDM environment. |
 | route53_resolver_rules_to_cdm_ram_shares | The RAM shares for the Route53 resolver rules that allow us to resolve DNS queries in the CDM environment. |
-| cdm_customer_gateway | The gateway for the site-to-site VPN connection to CDM. |
-| cdm_security_group | A security group that allows for all necessary communications between the CDM agents and the CDM CIDRs. |
-| cdm_tgw_route_table | The custom Transit Gateway route table for the CDM VPN connection. |
-| cdm_tgw_route_table_association | The association between the CDM VPN connection and its custom Transit Gateway route table. |
-| cdm_vpn_connection | The site-to-site VPN connection to CDM. |
 
 ## Notes ##
 
