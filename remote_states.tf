@@ -56,3 +56,19 @@ data "terraform_remote_state" "sharedservices" {
   # cool-sharedservices-cdm (e.g. staging, production).
   workspace = terraform.workspace
 }
+
+data "terraform_remote_state" "users" {
+  backend = "s3"
+
+  config = {
+    encrypt        = true
+    bucket         = "cisa-cool-terraform-state"
+    dynamodb_table = "terraform-state-lock"
+    profile        = "cool-terraform-backend"
+    region         = "us-east-1"
+    key            = "cool-accounts/users.tfstate"
+  }
+
+  # There is only a single Users account
+  workspace = "production"
+}
