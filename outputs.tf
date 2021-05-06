@@ -1,3 +1,43 @@
+output "cdm_cloudtrail_access_policy" {
+  value       = module.cdm_cloudtrail.access_policy
+  description = "The IAM policy with the necessary permissions to access the CDM CloudTrail data."
+}
+
+output "cdm_cloudtrail_access_role" {
+  value       = module.cdm_cloudtrail.access_role
+  description = "The IAM role that can be assumed to access the CDM CloudTrail data."
+}
+
+output "cdm_cloudtrail_assume_access_role_policy" {
+  value       = module.cdm_cloudtrail.assume_access_role_policy
+  description = "The IAM policy that allows the CDM user to assume the IAM role that allows access the CDM CloudTrail data."
+}
+
+output "cdm_cloudtrail_bucket" {
+  value       = module.cdm_cloudtrail.bucket
+  description = "The S3 bucket where CloudTrail logs are stored for CDM."
+}
+
+output "cdm_cloudtrail_deadletter_queue" {
+  value       = module.cdm_cloudtrail.deadletter_queue
+  description = "The SQS deadletter queue of messages notifying of CloudTrail logs being written to the CDM S3 bucket for which processing has failed."
+}
+
+output "cdm_cloudtrail_queue" {
+  value       = module.cdm_cloudtrail.queue
+  description = "The SQS queue of messages notifying of CloudTrail logs being written to the CDM S3 bucket."
+}
+
+output "cdm_cloudtrail_topic" {
+  value       = module.cdm_cloudtrail.topic
+  description = "The SNS topic for notifications of CloudTrail logs being written to the CDM S3 bucket."
+}
+
+output "cdm_cloudtrail_trail" {
+  value       = module.cdm_cloudtrail.trail
+  description = "The CloudTrail trail for CDM."
+}
+
 output "cdm_customer_gateway" {
   value       = aws_customer_gateway.cdm
   description = "The gateway for the site-to-site VPN connection to CDM."
