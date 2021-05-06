@@ -9,6 +9,16 @@ variable "cdm_cidr" {
   description = "The CIDR block on the CDM end of the site-to-site VPN tunnel (e.g. \"10.201.0.0/16\")."
 }
 
+variable "cdm_cloudtrail_assume_role_policy_description" {
+  type        = string
+  description = "The description to associate with the IAM policy that allows the CDM user to assume the IAM role that allows access to the CDM CloudTrail data (e.g., \"The IAM policy that allows the CDM user to assume the IAM role that allows access to the CDM CloudTrail data in the AccountName account.\")."
+}
+
+variable "cdm_cloudtrail_assume_role_policy_name" {
+  type        = string
+  description = "The name to associate with the IAM policy that allows the CDM user to assume the IAM role that allows access to the CDM CloudTrail data (e.g., \"ACCTNAME-AssumeCdmCloudTrail\")."
+}
+
 variable "cdm_dns_ips" {
   type        = list(string)
   description = "The DNS server IPs for the CDM environment (e.g. [\"100.200.75.25\", \"100.200.100.50\"])."
@@ -22,6 +32,11 @@ variable "cdm_domains" {
 variable "cdm_tunnel_ip" {
   type        = string
   description = "The IP address of the site-to-site VPN tunnel endpoint on the CDM side (e.g. \"100.200.75.25\")."
+}
+
+variable "cdm_user_name" {
+  type        = string
+  description = "The user name of the CDM user who will assume the role to access the CloudTrail data."
 }
 
 variable "cdm_vpn_preshared_key" {
