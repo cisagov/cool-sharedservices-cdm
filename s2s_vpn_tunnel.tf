@@ -19,9 +19,14 @@ resource "aws_customer_gateway" "cdm" {
 resource "aws_vpn_connection" "cdm" {
   provider = aws.sharedservicesprovisionaccount
 
-  customer_gateway_id      = aws_customer_gateway.cdm.id
-  local_ipv4_network_cidr  = var.cdm_cidr
-  remote_ipv4_network_cidr = data.terraform_remote_state.networking.outputs.vpc.cidr_block
+  customer_gateway_id     = aws_customer_gateway.cdm.id
+  local_ipv4_network_cidr = var.cdm_cidr
+  # The cidrsubnets() here is because we want to give CDM as small a
+  # subnet as possible, since they are assuming there are no
+  # duplicates across the CISA enterprise.  All the instances that
+  # interest them (the OpenVPN and FreeIPA instances) are in the
+  # bottom /4 of the SharedServices CIDR block.
+  remote_ipv4_network_cidr = cidrsubnets(data.terraform_remote_state.networking.outputs.vpc.cidr_block, 4)[0]
   static_routes_only       = true
   tags = merge(
     var.tags,
