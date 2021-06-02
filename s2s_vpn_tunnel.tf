@@ -24,9 +24,16 @@ resource "aws_vpn_connection" "cdm" {
   # The cidrsubnets() here is because we want to give CDM as small a
   # subnet as possible, since they are assuming there are no
   # duplicates across the CISA enterprise.  All the instances that
-  # interest them (the OpenVPN and FreeIPA instances) are in the
-  # bottom /4 of the SharedServices CIDR block.
-  remote_ipv4_network_cidr = cidrsubnets(data.terraform_remote_state.networking.outputs.vpc.cidr_block, 4)[0]
+  # interest them (the OpenVPN and FreeIPA instances) are contained in
+  # the first 16 /24 subnets of the VPC's /16 CIDR block; for
+  # instance, if the VPC CIDR block is 10.10.0.0/16, then the
+  # instances of interest are contained in 10.10.0.0/24, 10.10.1.0/24,
+  # ..., 10.10.15.0/24, which is equivalent to 10.10.0.0/20 or
+  # cidrsubnet("10.10.0.0/16", 4, 0).
+  #
+  # See also:
+  # https://www.terraform.io/docs/language/functions/cidrsubnet.html
+  remote_ipv4_network_cidr = cidrsubnet(data.terraform_remote_state.networking.outputs.vpc.cidr_block, 4, 0)
   static_routes_only       = true
   tags = merge(
     var.tags,
