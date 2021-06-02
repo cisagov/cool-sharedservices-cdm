@@ -10,7 +10,7 @@ terraform {
     # correctly allows the local_ipv4_network_cidr and
     # remote_ipv4_network_cidr keys of the aws_vpn_connection resource
     # to be non-/32 CIDRs.
-    aws  = "~> 3.42"
+    aws  = "~> 3.43"
     null = "~> 3.0"
   }
 }
