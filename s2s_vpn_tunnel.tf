@@ -21,7 +21,7 @@ resource "aws_vpn_connection" "cdm" {
 
   customer_gateway_id     = aws_customer_gateway.cdm.id
   local_ipv4_network_cidr = var.cdm_cidr
-  # The cidrsubnets() here is because we want to give CDM as small a
+  # The cidrsubnet() here is because we want to give CDM as small a
   # subnet as possible, since they are assuming there are no
   # duplicates across the CISA enterprise.  All the instances that
   # interest them (the OpenVPN and FreeIPA instances) are contained in
