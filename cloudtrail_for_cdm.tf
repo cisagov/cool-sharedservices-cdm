@@ -8,5 +8,4 @@ module "cdm_cloudtrail" {
   assume_role_policy_description = var.cdm_cloudtrail_assume_role_policy_description
   assume_role_policy_name        = var.cdm_cloudtrail_assume_role_policy_name
   cdm_user_name                  = var.cdm_user_name
-  tags                           = var.tags
 }

@@ -11,12 +11,9 @@ resource "aws_security_group" "dns_from_cdm" {
   vpc_id = data.terraform_remote_state.networking.outputs.vpc.id
 
   description = "CDM DNS - From CDM"
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "CDM DNS - From CDM"
-    },
-  )
+  tags = {
+    "Name" = "CDM DNS - From CDM"
+  }
 }
 resource "aws_security_group_rule" "dns_from_cdm" {
   for_each = toset(local.tcp_and_udp)
@@ -47,10 +44,7 @@ resource "aws_route53_resolver_endpoint" "from_cdm" {
   security_group_ids = [
     aws_security_group.dns_from_cdm.id,
   ]
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "Route53 resolver - from CDM"
-    },
-  )
+  tags = {
+    "Name" = "Route53 resolver - from CDM"
+  }
 }

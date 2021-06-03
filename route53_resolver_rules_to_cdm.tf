@@ -20,12 +20,9 @@ resource "aws_route53_resolver_rule" "to_cdm" {
     }
   }
 
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "CDM DNS - To CDM"
-    },
-  )
+  tags = {
+    "Name" = "CDM DNS - To CDM"
+  }
 }
 
 # Associate the rules with our VPC
@@ -46,10 +43,7 @@ resource "aws_ram_resource_share" "to_cdm" {
   allow_external_principals = false
   name                      = each.value.name
 
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "CDM DNS - To CDM"
-    },
-  )
+  tags = {
+    "Name" = "CDM DNS - To CDM"
+  }
 }

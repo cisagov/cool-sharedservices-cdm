@@ -6,12 +6,9 @@ resource "aws_security_group" "cdm" {
   vpc_id = data.terraform_remote_state.networking.outputs.vpc.id
 
   description = "CDM"
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "CDM"
-    },
-  )
+  tags = {
+    "Name" = "CDM"
+  }
 }
 
 resource "aws_security_group_rule" "cdm" {
