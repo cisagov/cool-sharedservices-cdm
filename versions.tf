@@ -9,7 +9,12 @@ terraform {
     # Version 3.38.0 of the Terraform AWS provider is the first
     # version to support default tags.
     # https://www.hashicorp.com/blog/default-tags-in-the-terraform-aws-provider
-    aws  = "~> 3.38"
+    #
+    # Version 3.43.0 of the Terraform AWS provider is the first
+    # version that correctly allows the local_ipv4_network_cidr
+    # and remote_ipv4_network_cidr keys of the aws_vpn_connection
+    # resource to be non-/32 CIDRs.
+    aws  = "~> 3.43"
     null = "~> 3.0"
   }
 }
