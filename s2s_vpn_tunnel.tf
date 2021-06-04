@@ -19,20 +19,22 @@ resource "aws_customer_gateway" "cdm" {
 resource "aws_vpn_connection" "cdm" {
   provider = aws.sharedservicesprovisionaccount
 
-  customer_gateway_id = aws_customer_gateway.cdm.id
-  # These two resources seem to want a /32, which is incorrect.  See this GitHub issue:
-  # https://github.com/hashicorp/terraform-provider-aws/issues/16879
+  customer_gateway_id     = aws_customer_gateway.cdm.id
+  local_ipv4_network_cidr = var.cdm_cidr
+  # The cidrsubnet() here is because we want to give CDM as small a
+  # subnet as possible, since they are assuming there are no
+  # duplicates across the CISA enterprise.  All the instances that
+  # interest them (the OpenVPN and FreeIPA instances) are contained in
+  # the first 16 /24 subnets of the VPC's /16 CIDR block; for
+  # instance, if the VPC CIDR block is 10.10.0.0/16, then the
+  # instances of interest are contained in 10.10.0.0/24, 10.10.1.0/24,
+  # ..., 10.10.15.0/24, which is equivalent to 10.10.0.0/20 or
+  # cidrsubnet("10.10.0.0/16", 4, 0).
   #
-  # This doesn't really matter (I hope), since I will define what
-  # traffic flows into the customer gateway via TGW routing tables.
-  #
-  # We should be able to make use of these parameters once this pull
-  # request is approved and merged:
-  # https://github.com/hashicorp/terraform-provider-aws/pull/17573
-  #
-  # local_ipv4_network_cidr = var.cdm_cidr
-  # remote_ipv4_network_cidr = data.terraform_remote_state.networking.outputs.vpc.cidr_block
-  static_routes_only = true
+  # See also:
+  # https://www.terraform.io/docs/language/functions/cidrsubnet.html
+  remote_ipv4_network_cidr = cidrsubnet(data.terraform_remote_state.networking.outputs.vpc.cidr_block, 4, 0)
+  static_routes_only       = true
   tags = merge(
     var.tags,
     {
