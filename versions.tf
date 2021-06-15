@@ -6,10 +6,6 @@ terraform {
   # major version currently being used.  This practice will help us
   # avoid unwelcome surprises.
   required_providers {
-    # Version 3.38.0 of the Terraform AWS provider is the first
-    # version to support default tags.
-    # https://www.hashicorp.com/blog/default-tags-in-the-terraform-aws-provider
-    #
     # Version 3.43.0 of the Terraform AWS provider is the first
     # version that correctly allows the local_ipv4_network_cidr
     # and remote_ipv4_network_cidr keys of the aws_vpn_connection
