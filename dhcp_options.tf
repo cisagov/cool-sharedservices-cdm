@@ -14,12 +14,9 @@ resource "aws_vpc_dhcp_options" "cdm" {
   netbios_name_servers = data.terraform_remote_state.networking.outputs.vpc_dhcp_options.netbios_name_servers
   netbios_node_type    = data.terraform_remote_state.networking.outputs.vpc_dhcp_options.netbios_node_type
   ntp_servers          = data.terraform_remote_state.networking.outputs.vpc_dhcp_options.ntp_servers
-  tags = merge(
-    var.tags,
-    {
-      Name = "CDM"
-    },
-  )
+  tags = {
+    Name = "CDM"
+  }
 }
 
 # Associate the DHCP options with the Shared Services VPC

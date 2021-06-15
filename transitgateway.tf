@@ -8,12 +8,9 @@
 resource "aws_ec2_transit_gateway_route_table" "cdm" {
   provider = aws.sharedservicesprovisionaccount
 
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "CDM s2s VPN route table"
-    },
-  )
+  tags = {
+    "Name" = "CDM s2s VPN route table"
+  }
   transit_gateway_id = data.terraform_remote_state.networking.outputs.transit_gateway.id
 }
 

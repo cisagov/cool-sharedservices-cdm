@@ -7,12 +7,9 @@ resource "aws_customer_gateway" "cdm" {
 
   bgp_asn    = 65000 # Unused
   ip_address = var.cdm_tunnel_ip
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "CDM site-to-site VPN gateway"
-    },
-  )
+  tags = {
+    "Name" = "CDM site-to-site VPN gateway"
+  }
   type = "ipsec.1"
 }
 
@@ -35,12 +32,9 @@ resource "aws_vpn_connection" "cdm" {
   # https://www.terraform.io/docs/language/functions/cidrsubnet.html
   remote_ipv4_network_cidr = cidrsubnet(data.terraform_remote_state.networking.outputs.vpc.cidr_block, 4, 0)
   static_routes_only       = true
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "CDM site-to-site VPN connection"
-    },
-  )
+  tags = {
+    "Name" = "CDM site-to-site VPN connection"
+  }
   transit_gateway_id       = data.terraform_remote_state.networking.outputs.transit_gateway.id
   tunnel_inside_ip_version = "ipv4"
   # Try to reconnect when we detect that the other side of the tunnel
