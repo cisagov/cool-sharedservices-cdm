@@ -26,7 +26,7 @@ or
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 0.12.0 |
+| terraform | ~> 0.13.0 |
 | aws | ~> 3.43 |
 | null | ~> 3.0 |
 
@@ -44,7 +44,7 @@ or
 
 | Name | Source | Version |
 |------|--------|---------|
-| cdm\_cloudtrail | github.com/cisagov/cool-cdm-cloudtrail-tf-module |  |
+| cdm\_cloudtrail | github.com/cisagov/cool-cdm-cloudtrail-tf-module | n/a |
 
 ## Resources ##
 

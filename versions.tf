@@ -1,6 +1,6 @@
 terraform {
-  # We want to hold off on 0.13 or higher until we have tested it.
-  required_version = "~> 0.12.0"
+  # We want to hold off on 0.14 or higher until we have tested it.
+  required_version = "~> 0.13.0"
 
   # If you use any other providers you should also pin them to the
   # major version currently being used.  This practice will help us
@@ -10,7 +10,13 @@ terraform {
     # version that correctly allows the local_ipv4_network_cidr
     # and remote_ipv4_network_cidr keys of the aws_vpn_connection
     # resource to be non-/32 CIDRs.
-    aws  = "~> 3.43"
-    null = "~> 3.0"
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.43"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.0"
+    }
   }
 }
