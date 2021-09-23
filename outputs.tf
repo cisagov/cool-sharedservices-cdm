@@ -71,6 +71,7 @@ output "cdm_vpc_dhcp_options_association" {
 output "cdm_vpn_connection" {
   value       = aws_vpn_connection.cdm
   description = "The site-to-site VPN connection to CDM."
+  sensitive   = true
 }
 
 output "dns_from_cdm_security_group" {
