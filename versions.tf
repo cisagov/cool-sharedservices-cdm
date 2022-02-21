@@ -12,7 +12,7 @@ terraform {
     # resource to be non-/32 CIDRs.
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.43"
+      version = "~> 4.2"
     }
     null = {
       source  = "hashicorp/null"
