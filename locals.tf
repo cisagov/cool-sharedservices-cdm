@@ -98,4 +98,26 @@ locals {
     "tcp",
     "udp",
   ]
+
+  # The AWS EC2 instances for which CDM will be allowed to read
+  # CloudWatch logs.
+  #
+  # Note that there is no need to adjust the FQDNs for staging, since
+  # COOL staging is not connected to CDM; this is because CDM cannot
+  # handle the fact that COOL production and staging use the same IPv4
+  # IP space.
+  cdm_instances = [
+    "ipa0.cool.cyber.dhs.gov",
+    "ipa1.cool.cyber.dhs.gov",
+    "ipa2.cool.cyber.dhs.gov",
+    "vpn",
+  ]
+
+  # The AWS CloudWatch log streams that CDM will be allowed to read,
+  # for each of the instances in cdm_instances
+  cdm_log_streams = [
+    "messages",
+    "secure",
+    "audit",
+  ]
 }

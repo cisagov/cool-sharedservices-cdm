@@ -13,22 +13,11 @@ data "aws_iam_policy_document" "allow_access_to_selected_cloudwatch_logs" {
     ]
     effect = "Allow"
     resources = [
-      # There is no need to adjust the FQDNs for staging, since COOL
-      # staging is not connected to CDM; this is because CDM cannot
-      # handle the fact that COOL production and staging use the same
-      # IPv4 IP space.
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa0.cool.cyber.dhs.gov:log-stream:messages",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa0.cool.cyber.dhs.gov:log-stream:secure",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa0.cool.cyber.dhs.gov:log-stream:audit",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa1.cool.cyber.dhs.gov:log-stream:messages",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa1.cool.cyber.dhs.gov:log-stream:secure",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa1.cool.cyber.dhs.gov:log-stream:audit",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa2.cool.cyber.dhs.gov:log-stream:messages",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa2.cool.cyber.dhs.gov:log-stream:secure",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/ipa2.cool.cyber.dhs.gov:log-stream:audit",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/vpn:log-stream:messages",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/vpn:log-stream:secure",
-      "arn:aws:logs:${var.aws_region}:${local.sharedservices_account_id}:log-group:/instance-logs/vpn:log-stream:audit",
+      # setproduct() allows us to iterate through every possible pair
+      # where one member is selected from local.cdm_instances and the
+      # other is selected from local.cdm_log_streams.
+      for instance_and_stream in setproduct(local.cdm_instances, local.cdm_log_streams) :
+      format("arn:aws:logs:%s:%d:log-group:/instance-logs/%s:log-stream:%s", var.aws_region, local.sharedservices_account_id, instance_and_stream[0], instance_and_stream[1])
     ]
   }
 }
