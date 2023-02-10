@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-# Provision the IAM policy that allows access the CDM CloudWatch data
+# Provision the IAM policy that allows access to the CDM CloudWatch data
 # and attach it to the existing IAM role that the CDM user can already
 # assume to access the CDM CloudTrail data.
 # ------------------------------------------------------------------------------
