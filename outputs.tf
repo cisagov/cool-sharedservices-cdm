@@ -38,6 +38,11 @@ output "cdm_cloudtrail_trail" {
   description = "The CloudTrail trail for CDM."
 }
 
+output "cdm_cloudwatch_access_policy" {
+  value       = aws_iam_policy.cloudwatch
+  description = "The IAM policy with the necessary permissions to access the CDM CloudWatch data."
+}
+
 output "cdm_customer_gateway" {
   value       = aws_customer_gateway.cdm
   description = "The gateway for the site-to-site VPN connection to CDM."
