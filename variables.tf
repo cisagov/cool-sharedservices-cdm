@@ -56,6 +56,18 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "cloudwatch_policy_description" {
+  type        = string
+  description = "The description to associate with the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested."
+  default     = "Allows read access to the specific CloudWatch log streams in which CDM is interested."
+}
+
+variable "cloudwatch_policy_name" {
+  type        = string
+  description = "The name to assign the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested."
+  default     = "CdmCloudWatch"
+}
+
 variable "provisionaccount_role_name" {
   type        = string
   description = "The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Shared Services account."
