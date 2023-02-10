@@ -65,7 +65,7 @@ variable "cloudwatch_policy_description" {
 variable "cloudwatch_policy_name" {
   type        = string
   description = "The name to assign the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested."
-  default     = "CdmCloudWatch"
+  default     = "CdmCloudWatchReadOnly"
 }
 
 variable "provisionaccount_role_name" {
