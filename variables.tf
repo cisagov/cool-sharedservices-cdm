@@ -64,13 +64,13 @@ variable "cloudwatch_policy_description" {
 
 variable "cloudwatch_policy_instances" {
   type        = list(string)
-  description = "Each string corresponds to the name of an instance (as it appears in the CloudWatch log group) for which CDM is to be allowed read access to the specific CloudWatch log streams in which they are interested."
+  description = "Each string corresponds to the name of an instance (as it appears in the CloudWatch log group) for which CDM is to be allowed read access to the specific CloudWatch log groups in which they are interested."
   default     = []
 }
 
-variable "cloudwatch_policy_log_streams" {
+variable "cloudwatch_policy_log_groups" {
   type        = list(string)
-  description = "Each string corresponds to the name of a CloudWatch log stream for which CDM is to be allowed read access."
+  description = "Each string corresponds to the name of a CloudWatch log group for which CDM is to be allowed read access for selected CLoudWatch log streams."
   default     = []
 }
 

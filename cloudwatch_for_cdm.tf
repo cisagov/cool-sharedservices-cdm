@@ -14,10 +14,11 @@ data "aws_iam_policy_document" "allow_access_to_selected_cloudwatch_logs" {
     effect = "Allow"
     resources = [
       # setproduct() allows us to iterate through every possible pair
-      # where one member is selected from local.cdm_instances and the
-      # other is selected from local.cdm_log_streams.
-      for instance_and_stream in setproduct(var.cloudwatch_policy_instances, var.cloudwatch_policy_log_streams) :
-      format("arn:aws:logs:%s:%d:log-group:/instance-logs/%s:log-stream:%s", var.aws_region, local.sharedservices_account_id, instance_and_stream[0], instance_and_stream[1])
+      # where one member is selected from
+      # var.cloudwatch_policy_log_groups and the other is selected
+      # from var.cloudwatch_policy_instances.
+      for group_and_stream in setproduct(var.cloudwatch_policy_log_groups, var.cloudwatch_policy_instances) :
+      format("arn:aws:logs:%s:%d:log-group:%s:log-stream:%s", var.aws_region, local.sharedservices_account_id, group_and_stream[0], group_and_stream[1])
     ]
   }
 }
