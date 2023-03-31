@@ -56,7 +56,9 @@ or
 | [aws_ec2_transit_gateway_route.sharedservices_vpn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route) | resource |
 | [aws_ec2_transit_gateway_route_table.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route_table) | resource |
 | [aws_ec2_transit_gateway_route_table_association.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route_table_association) | resource |
+| [aws_iam_policy.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.provisioncdm_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role_policy_attachment.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.provisioncdm_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_ram_resource_share.to_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share) | resource |
 | [aws_route53_resolver_endpoint.from_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_resolver_endpoint) | resource |
@@ -75,6 +77,7 @@ or
 | [null_resource.break_association_with_default_route_table](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_caller_identity.sharedservices](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.allow_access_to_selected_cloudwatch_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.provisioncdm_policy_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_organizations_organization.cool](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
 | [terraform_remote_state.master](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
@@ -95,6 +98,10 @@ or
 | cdm\_tunnel\_ip | The IP address of the site-to-site VPN tunnel endpoint on the CDM side (e.g. "100.200.75.25"). | `string` | n/a | yes |
 | cdm\_user\_name | The user name of the CDM user who will assume the role to access the CloudTrail data. | `string` | n/a | yes |
 | cdm\_vpn\_preshared\_key | The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and CDM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. "abcdefghijklmnopqrstuvwxyz01234567.\_"). | `string` | n/a | yes |
+| cloudwatch\_policy\_description | The description to associate with the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested. | `string` | `"Allows read access to the specific CloudWatch log streams in which CDM is interested."` | no |
+| cloudwatch\_policy\_instances | Each string corresponds to the name of an instance, which itself corresponds to a CloudWatch log stream to which CDM is to be allowed read access.  (The name of the instance should be as it appears in the CloudWatch log stream; in some cases this is the FQDN and in others it is just the hostname.)  The selected CloudWatch log groups in which these streams reside are defined by the variable cloudwatch\_policy\_log\_groups. | `list(string)` | `[]` | no |
+| cloudwatch\_policy\_log\_groups | Each string corresponds to the name of a CloudWatch log group for which CDM is to be allowed read access for selected CloudWatch log streams.  The selected CloudWatch log streams inside these log groups to which CDM is to be allowed access are defined by the variable cloudwatch\_policy\_log\_streams. | `list(string)` | `[]` | no |
+| cloudwatch\_policy\_name | The name to assign the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested. | `string` | `"CdmCloudWatchReadOnly"` | no |
 | provisionaccount\_role\_name | The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Shared Services account. | `string` | `"ProvisionAccount"` | no |
 | provisioncdm\_policy\_description | The description to associate with the IAM policy that allows provisioning of the CDM layer in the Shared Services account. | `string` | `"Allows provisioning of the CDM layer in the Shared Services account."` | no |
 | provisioncdm\_policy\_name | The name to assign the IAM policy that allows provisioning of the CDM layer in the Shared Services account. | `string` | `"ProvisionCdm"` | no |
@@ -112,6 +119,7 @@ or
 | cdm\_cloudtrail\_queue | The SQS queue of messages notifying of CloudTrail logs being written to the CDM S3 bucket. |
 | cdm\_cloudtrail\_topic | The SNS topic for notifications of CloudTrail logs being written to the CDM S3 bucket. |
 | cdm\_cloudtrail\_trail | The CloudTrail trail for CDM. |
+| cdm\_cloudwatch\_access\_policy | The IAM policy with the necessary permissions to access the CDM CloudWatch data. |
 | cdm\_customer\_gateway | The gateway for the site-to-site VPN connection to CDM. |
 | cdm\_security\_group | A security group that allows for all necessary communications between the CDM agents and the CDM CIDRs. |
 | cdm\_tgw\_route\_table | The custom Transit Gateway route table for the CDM VPN connection. |

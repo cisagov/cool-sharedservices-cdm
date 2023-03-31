@@ -56,6 +56,30 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "cloudwatch_policy_description" {
+  type        = string
+  description = "The description to associate with the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested."
+  default     = "Allows read access to the specific CloudWatch log streams in which CDM is interested."
+}
+
+variable "cloudwatch_policy_instances" {
+  type        = list(string)
+  description = "Each string corresponds to the name of an instance, which itself corresponds to a CloudWatch log stream to which CDM is to be allowed read access.  (The name of the instance should be as it appears in the CloudWatch log stream; in some cases this is the FQDN and in others it is just the hostname.)  The selected CloudWatch log groups in which these streams reside are defined by the variable cloudwatch_policy_log_groups."
+  default     = []
+}
+
+variable "cloudwatch_policy_log_groups" {
+  type        = list(string)
+  description = "Each string corresponds to the name of a CloudWatch log group for which CDM is to be allowed read access for selected CloudWatch log streams.  The selected CloudWatch log streams inside these log groups to which CDM is to be allowed access are defined by the variable cloudwatch_policy_log_streams."
+  default     = []
+}
+
+variable "cloudwatch_policy_name" {
+  type        = string
+  description = "The name to assign the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested."
+  default     = "CdmCloudWatchReadOnly"
+}
+
 variable "provisionaccount_role_name" {
   type        = string
   description = "The name of the IAM role that allows sufficient permissions to provision all AWS resources in the Shared Services account."
