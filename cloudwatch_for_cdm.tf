@@ -9,6 +9,17 @@
 data "aws_iam_policy_document" "allow_access_to_selected_cloudwatch_logs" {
   statement {
     actions = [
+      "logs:DescribeLogStreams",
+    ]
+    effect = "Allow"
+    resources = [
+      for group in var.cloudwatch_policy_log_groups :
+      format("arn:aws:logs:%s:%d:log-group:%s", var.aws_region, local.sharedservices_account_id, group)
+    ]
+  }
+
+  statement {
+    actions = [
       "logs:GetLogEvents",
     ]
     effect = "Allow"
