@@ -22,21 +22,22 @@ or
 - Access to all of the Terraform remote states specified in
   [remote_states.tf](remote_states.tf).
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements ##
 
 | Name | Version |
 |------|---------|
 | terraform | ~> 1.0 |
-| aws | ~> 3.43 |
+| aws | ~> 4.9 |
 | null | ~> 3.0 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.43 |
-| aws.organizationsreadonly | ~> 3.43 |
-| aws.sharedservicesprovisionaccount | ~> 3.43 |
+| aws | ~> 4.9 |
+| aws.organizationsreadonly | ~> 4.9 |
+| aws.sharedservicesprovisionaccount | ~> 4.9 |
 | null | ~> 3.0 |
 | terraform | n/a |
 
@@ -133,6 +134,7 @@ or
 | route53\_resolver\_endpoint\_to\_cdm | The Route53 resolver that allows us to resolve DNS queries in the CDM environment. |
 | route53\_resolver\_rules\_to\_cdm | The Route53 resolver rules that allow us to resolve DNS queries in the CDM environment. |
 | route53\_resolver\_rules\_to\_cdm\_ram\_shares | The RAM shares for the Route53 resolver rules that allow us to resolve DNS queries in the CDM environment. |
+<!-- END_TF_DOCS -->
 
 ## Notes ##
 
