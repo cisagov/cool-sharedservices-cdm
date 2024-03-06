@@ -49,3 +49,16 @@ resource "aws_s3_bucket_ownership_controls" "cloudwatch" {
     object_ownership = "BucketOwnerEnforced"
   }
 }
+
+# Configure the bucket to send notifications to the SNS topic whenever objects
+# are added to the bucket.
+resource "aws_s3_bucket_notification" "cloudwatch" {
+  provider = aws.sharedservicesprovisionaccount
+
+  bucket = aws_s3_bucket.cloudwatch.id
+
+  topic {
+    events    = ["s3:ObjectCreated:*"]
+    topic_arn = aws_sns_topic.cloudwatch_logs.arn
+  }
+}
