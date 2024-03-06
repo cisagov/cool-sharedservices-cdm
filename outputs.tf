@@ -43,6 +43,26 @@ output "cdm_cloudwatch_access_policy" {
   description = "The IAM policy with the necessary permissions to access the CDM CloudWatch data."
 }
 
+output "cdm_cloudwatch_logs_bucket" {
+  value       = aws_s3_bucket.cloudwatch
+  description = "The S3 bucket where CloudWatch logs are stored for CDM."
+}
+
+output "cdm_cloudwatch_logs_sns_topic" {
+  value       = aws_sns_topic.cloudwatch_logs
+  description = "The SNS topic that receives notifications from the CDM S3 bucket and is subscribed to by the SQS queue."
+}
+
+output "cdm_cloudwatch_logs_sqs_queue" {
+  value       = aws_sqs_queue.cloudwatch_logs
+  description = "The SQS queue that receives CloudWatch log events when objects are added to the CDM S3 bucket."
+}
+
+output "cdm_cloudwatch_logs_sqs_dead_letter_queue" {
+  value       = aws_sqs_queue.cloudwatch_logs_dead_letter
+  description = "The SQS dead letter queue that receives events that could not be delivered to the main queue."
+}
+
 output "cdm_customer_gateway" {
   value       = aws_customer_gateway.cdm
   description = "The gateway for the site-to-site VPN connection to CDM."
