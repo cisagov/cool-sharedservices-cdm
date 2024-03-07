@@ -4,6 +4,11 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
+variable "cdm_cloudwatch_bucket_name" {
+  description = "The name of the S3 bucket that will receive logs from CloudWatch so that they can later be ingested by CDM (e.g. \"cdm-cloudwatch-logs\")."
+  type        = string
+}
+
 variable "cdm_cidr" {
   type        = string
   description = "The CIDR block on the CDM end of the site-to-site VPN tunnel (e.g. \"10.201.0.0/16\")."
@@ -56,6 +61,18 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "cloudwatch_logs_sqs_queue_name" {
+  default     = "cdm-cloudwatch-logs"
+  description = "The name of the SQS queue that will receive CloudWatch log events when objects are added to the CDM S3 bucket (e.g. \"cdm-cloudwatch-logs\")."
+  type        = string
+}
+
+variable "cloudwatch_logs_sns_topic_name" {
+  default     = "cdm-cloudwatch-logs"
+  description = "The name of the SNS topic that will receive notifications from the CDM S3 bucket when objects are added to it (e.g. \"cdm-cloudwatch-logs\")."
+  type        = string
+}
+
 variable "cloudwatch_policy_description" {
   type        = string
   description = "The description to associate with the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested."
@@ -78,6 +95,36 @@ variable "cloudwatch_policy_name" {
   type        = string
   description = "The name to assign the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested."
   default     = "CdmCloudWatchReadOnly"
+}
+
+variable "cloudwatch_to_firehose_role_description" {
+  default     = "The IAM policy/role that allows CloudWatch to deliver CDM log events to the Firehose delivery stream that will send them to an S3 bucket for ingestion into CDM."
+  description = "The description to associate with the IAM policy and role that allows CloudWatch to deliver CDM log events to the Firehose delivery stream that will send them to an S3 bucket for ingestion into CDM."
+  type        = string
+}
+
+variable "cloudwatch_to_firehose_role_name" {
+  default     = "CdmCloudWatchLogsToFirehose"
+  description = "The name to assign the IAM policy and role that allow CloudWatch to deliver CDM log events to the Firehose delivery stream that will send them to an S3 bucket for ingestion into CDM."
+  type        = string
+}
+
+variable "firehose_delivery_stream_name" {
+  default     = "cdm-cloudwatch-logs"
+  description = "The name to assign the Firehose delivery stream that will receive the CloudWatch log events and send them to the CDM S3 bucket."
+  type        = string
+}
+
+variable "firehose_to_s3_role_description" {
+  default     = "The IAM policy/role that allows Firehose to deliver CDM log events to the S3 bucket where they will be ingested into CDM."
+  description = "The description to associate with the IAM policy and role that allows Firehose to deliver CDM log events to the S3 bucket where they will be ingested into CDM."
+  type        = string
+}
+
+variable "firehose_to_s3_role_name" {
+  default     = "CdmFirehoseToS3"
+  description = "The name to assign the IAM policy and role that allow Firehose to deliver CDM log events to the S3 bucket where they will be ingested into CDM."
+  type        = string
 }
 
 variable "provisionaccount_role_name" {
