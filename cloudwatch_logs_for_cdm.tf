@@ -14,6 +14,25 @@ resource "aws_kinesis_firehose_delivery_stream" "cloudwatch_logs" {
   extended_s3_configuration {
     bucket_arn = aws_s3_bucket.cloudwatch.arn
     role_arn   = aws_iam_role.firehose_to_s3.arn
+
+    # Decompress each item that passes through the delivery stream.  The
+    # CloudWatch subscription filter automatically GZIPs the log events before
+    # sending them to the Firehose delivery stream, but we want the data to be
+    # decompressed before it is written to the S3 bucket so that Splunk can
+    # ingest it properly.  For more information, see:
+    # https://docs.aws.amazon.com/firehose/latest/dev/writing-with-cloudwatch-logs.html
+    processing_configuration {
+      enabled = "true"
+
+      processors {
+        type = "Decompression"
+
+        parameters {
+          parameter_name  = "CompressionFormat"
+          parameter_value = "GZIP"
+        }
+      }
+    }
   }
 
   name = var.firehose_delivery_stream_name
