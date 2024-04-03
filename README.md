@@ -28,16 +28,16 @@ or
 | Name | Version |
 |------|---------|
 | terraform | ~> 1.0 |
-| aws | ~> 4.9 |
+| aws | ~> 5.0 |
 | null | ~> 3.0 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
-| aws | ~> 4.9 |
-| aws.organizationsreadonly | ~> 4.9 |
-| aws.sharedservicesprovisionaccount | ~> 4.9 |
+| aws | ~> 5.0 |
+| aws.organizationsreadonly | ~> 5.0 |
+| aws.sharedservicesprovisionaccount | ~> 5.0 |
 | null | ~> 3.0 |
 | terraform | n/a |
 
