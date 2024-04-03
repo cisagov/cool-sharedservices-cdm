@@ -58,6 +58,11 @@ resource "aws_sqs_queue" "cloudwatch_logs" {
     deadLetterTargetArn = aws_sqs_queue.cloudwatch_logs_dead_letter.arn,
     maxReceiveCount     = 3
   })
+
+  # With the default value of 30 seconds, Splunk gives an error stating: "It is
+  # recommended to set VisibilityTimeout larger than 5 minutes for the specified
+  # SQS queue."
+  visibility_timeout_seconds = 600
 }
 
 # Create an IAM policy document that allows the SNS topic to send messages to
