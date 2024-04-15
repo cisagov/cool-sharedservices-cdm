@@ -1,5 +1,5 @@
 module "cdm_cloudtrail" {
-  source = "github.com/cisagov/cool-cdm-cloudtrail-tf-module?ref=improvement%2Fsupport-newest-aws-provider"
+  source = "github.com/cisagov/cool-cdm-cloudtrail-tf-module"
   providers = {
     aws       = aws.sharedservicesprovisionaccount
     aws.users = aws.usersprovisionaccount
