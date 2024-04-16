@@ -63,7 +63,7 @@ variable "aws_region" {
 
 variable "cloudwatch_logs_sqs_queue_name" {
   default     = "cdm-cloudwatch-logs"
-  description = "The name of the SQS queue that will receive CloudWatch log events when objects are added to the CDM S3 bucket (e.g. \"cdm-cloudwatch-logs\")."
+  description = "The name of the SQS queue that will receive CloudWatch log events when objects are added to the CDM S3 bucket (e.g. \"cdm-cloudwatch-logs\").  Note that this name will be appended with \"-dead-letter\" to create the name of the SQS dead-letter queue that receives events that could not be delivered to the main queue."
   type        = string
 }
 
