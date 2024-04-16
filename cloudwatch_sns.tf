@@ -41,8 +41,8 @@ data "aws_iam_policy_document" "s3_to_sns" {
   }
 }
 
-# Attach the policy (that allows the CDM S3 bucket to send notifications to the
-# SNS topic) to the SNS topic.
+# Attach the policy to the SNS topic that allows the CDM S3 bucket to send
+# notifications to the SNS topic.
 resource "aws_sns_topic_policy" "cloudwatch_logs" {
   provider = aws.sharedservicesprovisionaccount
 
