@@ -39,7 +39,9 @@ resource "aws_kinesis_firehose_delivery_stream" "cloudwatch_logs" {
 }
 
 # Create CloudWatch subscription filters to send events from CDM CloudWatch
-# log groups to the Firehose delivery stream
+# log groups to the Firehose delivery stream.  Note that every event from the
+# log groups will be sent to the Firehose delivery stream, since the filter
+# pattern below is an empty string.
 resource "aws_cloudwatch_log_subscription_filter" "cdm" {
   provider = aws.sharedservicesprovisionaccount
   for_each = toset(var.cloudwatch_policy_log_groups)
