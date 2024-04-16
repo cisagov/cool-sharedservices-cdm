@@ -42,6 +42,11 @@ data "aws_iam_policy_document" "cloudwatch_to_firehose" {
 
     effect = "Allow"
 
+    # This policy is a dependency of the role used by CloudWatch to deliver log
+    # events to the Firehose stream and that role is an input to the Firehose
+    # stream resource.  Therefore, this policy must be created before the
+    # Firehose stream resource is created, which is why the Firehose stream ARN
+    # below must be constructed manually.
     resources = [
       "arn:aws:firehose:${var.aws_region}:${local.sharedservices_account_id}:deliverystream/${var.firehose_delivery_stream_name}",
     ]
