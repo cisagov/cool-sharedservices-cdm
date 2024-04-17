@@ -32,6 +32,45 @@ data "aws_iam_policy_document" "allow_access_to_selected_cloudwatch_logs" {
       format("arn:aws:logs:%s:%d:log-group:%s:log-stream:%s", var.aws_region, local.sharedservices_account_id, group_and_stream[0], group_and_stream[1])
     ]
   }
+
+  # The following statements provide permissions needed by the Splunk Add-on
+  # for AWS to access the SQS queue and S3 bucket where the CDM CloudWatch log
+  # data is stored.  For more information, see:
+  # https://docs.splunk.com/Documentation/AddOns/released/AWS/SQS-basedS3
+  statement {
+    actions = [
+      "kms:Decrypt",
+      "sqs:ListQueues",
+    ]
+    effect    = "Allow"
+    resources = ["*"]
+  }
+
+  statement {
+    actions = [
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+    ]
+    effect = "Allow"
+    resources = [
+      "${aws_s3_bucket.cloudwatch.arn}/*",
+    ]
+  }
+
+  statement {
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes",
+      "sqs:GetQueueUrl",
+      "sqs:ReceiveMessage",
+      "sqs:SendMessage",
+    ]
+    effect = "Allow"
+    resources = [
+      aws_sqs_queue.cloudwatch_logs.arn,
+    ]
+  }
 }
 
 # Policy with the necessary permissions to access the CDM CloudWatch
