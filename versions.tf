@@ -6,18 +6,14 @@ terraform {
   # major version currently being used.  This practice will help us
   # avoid unwelcome surprises.
   required_providers {
-    # Version 4.9 of the Terraform AWS provider made changes to the S3 bucket
-    # refactor that is in place for versions 4.0-4.8 of the provider. With v4.9
-    # only non-breaking changes and deprecation notices are introduced. Using
-    # this version will simplify migration to the new, broken out AWS S3 bucket
-    # configuration resources. Please see
-    # https://github.com/hashicorp/terraform-provider-aws/pull/23985
-    # for more information about the changes in v4.9 and
-    # https://www.hashicorp.com/blog/terraform-aws-provider-4-0-refactors-s3-bucket-resource
-    # for more information about the S3 bucket refactor.
+    # Version 5.x is required in order to use the "Decompression" processor in
+    # the aws_kinesis_firehose_delivery_stream resource (part of the
+    # extended_s3_configuration).
+    # This comment should be removed when all of our Terraform modules have
+    # migrated to version 5.x.
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.9"
+      version = "~> 5.0"
     }
     null = {
       source  = "hashicorp/null"
