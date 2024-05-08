@@ -8,23 +8,22 @@
 resource "aws_security_group" "dns_from_cdm" {
   provider = aws.sharedservicesprovisionaccount
 
-  vpc_id = data.terraform_remote_state.networking.outputs.vpc.id
-
   description = "CDM DNS - From CDM"
   tags = {
     "Name" = "CDM DNS - From CDM"
   }
+  vpc_id = data.terraform_remote_state.networking.outputs.vpc.id
 }
 resource "aws_security_group_rule" "dns_from_cdm" {
   for_each = toset(local.tcp_and_udp)
   provider = aws.sharedservicesprovisionaccount
 
-  security_group_id = aws_security_group.dns_from_cdm.id
-  type              = "ingress"
   cidr_blocks       = [var.cdm_cidr]
-  protocol          = each.key
   from_port         = 53
+  protocol          = each.key
+  security_group_id = aws_security_group.dns_from_cdm.id
   to_port           = 53
+  type              = "ingress"
 }
 
 resource "aws_route53_resolver_endpoint" "from_cdm" {
