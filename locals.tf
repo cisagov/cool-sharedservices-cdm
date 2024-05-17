@@ -55,30 +55,6 @@ locals {
   # The ports the CDM agents use to communicate with the CDM
   # environment.
   cdm_ports = {
-    tanium_ingress = {
-      egress    = false
-      from_port = 17472
-      proto     = "tcp"
-      to_port   = 17472
-    },
-    tanium_egress = {
-      egress    = true
-      from_port = 17472
-      proto     = "tcp"
-      to_port   = 17472
-    },
-    tanium_threat_response_ingress = {
-      egress    = false
-      from_port = 17475
-      proto     = "tcp"
-      to_port   = 17475
-    },
-    tanium_threat_response_egress = {
-      egress    = true
-      from_port = 17475
-      proto     = "tcp"
-      to_port   = 17475
-    },
     tenable_ingress = {
       egress    = false
       from_port = 8834

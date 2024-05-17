@@ -1,5 +1,5 @@
-# Security group for instances that run CDM agents (Tanium and
-# Tenable)
+# Security group for instances that run CDM agents (e.g., CrowdStrike
+# Falconview, Tenable, etc.)
 resource "aws_security_group" "cdm" {
   provider = aws.sharedservicesprovisionaccount
 
