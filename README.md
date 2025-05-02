@@ -33,7 +33,7 @@ or
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 1.1 |
+| terraform | >= 1.1 |
 | aws | ~> 5.0 |
 | null | ~> 3.0 |
 
@@ -149,6 +149,7 @@ or
 | provisioncdm\_policy\_description | The description to associate with the IAM policy that allows provisioning of the CDM layer in the Shared Services account. | `string` | `"Allows provisioning of the CDM layer in the Shared Services account."` | no |
 | provisioncdm\_policy\_name | The name to assign the IAM policy that allows provisioning of the CDM layer in the Shared Services account. | `string` | `"ProvisionCdm"` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
+| terraform\_state\_bucket | The name of the S3 bucket where Terraform state is stored. | `string` | n/a | yes |
 
 ## Outputs ##
 
