@@ -32,22 +32,6 @@ locals {
   # The ID of the Shared Services account
   sharedservices_account_id = data.aws_caller_identity.sharedservices.account_id
 
-  # Look up the name of the Shared Services account from the AWS
-  # organizations provider
-  sharedservices_account_name = [
-    for account in data.aws_organizations_organization.cool.accounts :
-    account.name
-    if account.id == local.sharedservices_account_id
-  ][0]
-
-  # Determine the Shared Services account type (staging or production)
-  # based on the Shared Services account name.
-  #
-  # The account name format is "Shared Services (ACCOUNT_TYPE)" - for
-  # example, "Shared Services (Production)".
-  sharedservices_account_type = length(regexall("\\(([^()]*)\\)", local.sharedservices_account_name)) == 1 ? regex("\\(([^()]*)\\)", local.sharedservices_account_name)[0] : "Unknown"
-  workspace_type              = lower(local.sharedservices_account_type)
-
   #
   # Helpful lists for defining ACL and security group rules
   #
