@@ -8,52 +8,44 @@ data "terraform_remote_state" "master" {
   backend = "s3"
 
   config = {
-    encrypt        = true
-    bucket         = "cisa-cool-terraform-state"
+    bucket         = var.terraform_state_bucket
     dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+    key            = "cool-accounts/master.tfstate"
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "cool-accounts/master.tfstate"
   }
 
-  workspace = "production"
+  workspace = terraform.workspace
 }
 
 data "terraform_remote_state" "networking" {
   backend = "s3"
 
   config = {
-    encrypt        = true
-    bucket         = "cisa-cool-terraform-state"
+    bucket         = var.terraform_state_bucket
     dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+    key            = "cool-sharedservices-networking/terraform.tfstate"
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "cool-sharedservices-networking/terraform.tfstate"
   }
 
-  workspace = local.workspace_type
+  workspace = terraform.workspace
 }
 
 data "terraform_remote_state" "sharedservices" {
   backend = "s3"
 
   config = {
-    encrypt        = true
-    bucket         = "cisa-cool-terraform-state"
+    bucket         = var.terraform_state_bucket
     dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+    key            = "cool-accounts/shared_services.tfstate"
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "cool-accounts/shared_services.tfstate"
   }
 
-  # Note that this workspace is different from the others.  Since we
-  # use data from this remote state to compute local.workspace_type,
-  # we cannot use that local variable here; doing so would result in a
-  # Terraform "cycle" error.
-  #
-  # Instead, we rely on the name of our current Terraform workspace,
-  # which must match the name of one of the workspaces in
-  # cool-sharedservices-cdm (e.g. staging, production).
   workspace = terraform.workspace
 }
 
@@ -61,14 +53,13 @@ data "terraform_remote_state" "users" {
   backend = "s3"
 
   config = {
-    encrypt        = true
-    bucket         = "cisa-cool-terraform-state"
+    bucket         = var.terraform_state_bucket
     dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+    key            = "cool-accounts/users.tfstate"
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "cool-accounts/users.tfstate"
   }
 
-  # There is only a single Users account
-  workspace = "production"
+  workspace = terraform.workspace
 }
