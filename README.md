@@ -33,7 +33,7 @@ or
 
 | Name | Version |
 |------|---------|
-| terraform | >= 1.1 |
+| terraform | ~> 1.1 |
 | aws | ~> 5.0 |
 | null | ~> 3.0 |
 

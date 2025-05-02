@@ -20,5 +20,5 @@ terraform {
 
   # Version 1.1 of Terraform is the first version to support the
   # nullable key in variable definitions.
-  required_version = ">= 1.1"
+  required_version = "~> 1.1"
 }
