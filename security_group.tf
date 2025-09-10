@@ -14,7 +14,7 @@ resource "aws_security_group_rule" "cdm" {
   for_each = local.cdm_ports
   provider = aws.sharedservicesprovisionaccount
 
-  cidr_blocks       = [var.cdm_cidr]
+  cidr_blocks       = ["0.0.0.0/0"]
   from_port         = each.value.from_port
   protocol          = each.value.proto
   security_group_id = aws_security_group.cdm.id

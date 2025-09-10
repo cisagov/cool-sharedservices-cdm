@@ -63,68 +63,7 @@ output "cdm_cloudwatch_logs_sqs_dead_letter_queue" {
   value       = aws_sqs_queue.cloudwatch_logs_dead_letter
 }
 
-output "cdm_customer_gateway" {
-  description = "The gateway for the site-to-site VPN connection to CDM."
-  value       = aws_customer_gateway.cdm
-}
-
 output "cdm_security_group" {
   description = "A security group that allows for all necessary communications between the CDM agents and the CDM CIDRs."
   value       = aws_security_group.cdm
-}
-
-output "cdm_tgw_route_table" {
-  description = "The custom Transit Gateway route table for the CDM VPN connection."
-  value       = aws_ec2_transit_gateway_route_table.cdm
-}
-
-output "cdm_tgw_route_table_association" {
-  description = "The association between the CDM VPN connection and its custom Transit Gateway route table."
-  value       = aws_ec2_transit_gateway_route_table_association.cdm
-}
-
-output "cdm_vpc_dhcp_options" {
-  description = "The Shared Services VPC DHCP options.  These are identical to the DHCP options created in cisagov/cool-sharedservices-networking, except that we add the main CDM domain (var.cdm_domains[0]) to the DNS search path."
-  value       = aws_vpc_dhcp_options.cdm
-}
-
-output "cdm_vpc_dhcp_options_association" {
-  description = "The association between the Shared Services VPC and the CDM-enhanced DHCP options."
-  value       = aws_vpc_dhcp_options_association.cdm
-}
-
-output "cdm_vpn_connection" {
-  description = "The site-to-site VPN connection to CDM."
-  sensitive   = true
-  value       = aws_vpn_connection.cdm
-}
-
-output "dns_from_cdm_security_group" {
-  description = "The security group that allows DNS requests from the CDM environment."
-  value       = aws_security_group.dns_from_cdm
-}
-
-output "dns_to_cdm_security_group" {
-  description = "The security group that allows DNS requests to the CDM environment."
-  value       = aws_security_group.dns_to_cdm
-}
-
-output "route53_resolver_endpoint_from_cdm" {
-  description = "The Route53 resolver that allows the CDM environment to resolve DNS queries in our environment."
-  value       = aws_route53_resolver_endpoint.from_cdm
-}
-
-output "route53_resolver_endpoint_to_cdm" {
-  description = "The Route53 resolver that allows us to resolve DNS queries in the CDM environment."
-  value       = aws_route53_resolver_endpoint.to_cdm
-}
-
-output "route53_resolver_rules_to_cdm" {
-  description = "The Route53 resolver rules that allow us to resolve DNS queries in the CDM environment."
-  value       = aws_route53_resolver_rule.to_cdm
-}
-
-output "route53_resolver_rules_to_cdm_ram_shares" {
-  description = "The RAM shares for the Route53 resolver rules that allow us to resolve DNS queries in the CDM environment."
-  value       = aws_ram_resource_share.to_cdm
 }
