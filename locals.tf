@@ -51,6 +51,12 @@ locals {
       proto     = "tcp"
       to_port   = 8834
     },
+    crowdstrike_falcon_egress = {
+      egress    = true
+      from_port = 443
+      proto     = "tcp"
+      to_port   = 443
+    },
   }
 
   # Useful when creating some security group or ACL rules
