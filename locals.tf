@@ -14,14 +14,6 @@ data "aws_caller_identity" "sharedservices" {
 }
 
 # ------------------------------------------------------------------------------
-# Retrieve the information for all accounts in the organization.  This
-# is used to lookup account IDs.
-# ------------------------------------------------------------------------------
-data "aws_organizations_organization" "cool" {
-  provider = aws.organizationsreadonly
-}
-
-# ------------------------------------------------------------------------------
 # Evaluate expressions for use throughout this configuration.
 # ------------------------------------------------------------------------------
 locals {
@@ -58,10 +50,4 @@ locals {
       to_port   = 8834
     },
   }
-
-  # Useful when creating some security group or ACL rules
-  tcp_and_udp = [
-    "tcp",
-    "udp",
-  ]
 }
