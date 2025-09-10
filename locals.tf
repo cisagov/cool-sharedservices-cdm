@@ -39,11 +39,11 @@ locals {
   # The ports the CDM agents use to communicate with the CDM
   # environment.
   cdm_ports = {
-    tenable_ingress = {
-      egress    = false
-      from_port = 8834
+    crowdstrike_falcon_egress = {
+      egress    = true
+      from_port = 443
       proto     = "tcp"
-      to_port   = 8834
+      to_port   = 443
     },
     tenable_egress = {
       egress    = true
@@ -51,11 +51,11 @@ locals {
       proto     = "tcp"
       to_port   = 8834
     },
-    crowdstrike_falcon_egress = {
-      egress    = true
-      from_port = 443
+    tenable_ingress = {
+      egress    = false
+      from_port = 8834
       proto     = "tcp"
-      to_port   = 443
+      to_port   = 8834
     },
   }
 
