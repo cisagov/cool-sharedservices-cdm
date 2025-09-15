@@ -2,14 +2,17 @@
 
 [![GitHub Build Status](https://github.com/cisagov/cool-sharedservices-cdm/workflows/build/badge.svg)](https://github.com/cisagov/cool-sharedservices-cdm/actions)
 
-This is a Terraform deployment for creating the site-to-site VPN tunnel between
-the COOL and the CDM (Continuous Diagnostics and Mitigation) environment in the
-COOL Shared Services account.  It also creates:
+This is a Terraform deployment for creating the necessary resources in
+the COOL Shared Services account to allow the required data to flow
+between the COOL and the CDM (Continuous Diagnostics and Mitigation)
+environment.  In particular it creates:
 
-- The resources necessary to stream the COOL Shared Services CloudWatch logs
-  into an S3 bucket where they can be imported into the CDM environment
-- An IAM user and role that allows access to the CloudTrail logs in the COOL
-  Shared Services account and the S3 bucket where the CloudWatch logs are stored
+- The resources necessary to stream the COOL Shared Services
+  CloudWatch logs into an S3 bucket where they can be imported into
+  the CDM environment
+- An IAM user and role that allows access to the CloudTrail logs in
+  the COOL Shared Services account and the S3 bucket where the
+  CloudWatch logs are stored
 
 This deployment should be applied immediately after
 [cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking),
