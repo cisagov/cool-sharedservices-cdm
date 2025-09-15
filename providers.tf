@@ -33,16 +33,3 @@ provider "aws" {
   }
   region = var.aws_region
 }
-
-# The provider used to lookup account IDs.  Used in locals.tf.
-provider "aws" {
-  alias = "organizationsreadonly"
-  assume_role {
-    role_arn     = data.terraform_remote_state.master.outputs.organizationsreadonly_role.arn
-    session_name = local.caller_user_name
-  }
-  default_tags {
-    tags = var.tags
-  }
-  region = var.aws_region
-}

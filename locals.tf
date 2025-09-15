@@ -14,14 +14,6 @@ data "aws_caller_identity" "sharedservices" {
 }
 
 # ------------------------------------------------------------------------------
-# Retrieve the information for all accounts in the organization.  This
-# is used to lookup account IDs.
-# ------------------------------------------------------------------------------
-data "aws_organizations_organization" "cool" {
-  provider = aws.organizationsreadonly
-}
-
-# ------------------------------------------------------------------------------
 # Evaluate expressions for use throughout this configuration.
 # ------------------------------------------------------------------------------
 locals {
@@ -39,11 +31,11 @@ locals {
   # The ports the CDM agents use to communicate with the CDM
   # environment.
   cdm_ports = {
-    tenable_ingress = {
-      egress    = false
-      from_port = 8834
+    crowdstrike_falcon_egress = {
+      egress    = true
+      from_port = 443
       proto     = "tcp"
-      to_port   = 8834
+      to_port   = 443
     },
     tenable_egress = {
       egress    = true
@@ -51,11 +43,11 @@ locals {
       proto     = "tcp"
       to_port   = 8834
     },
+    tenable_ingress = {
+      egress    = false
+      from_port = 8834
+      proto     = "tcp"
+      to_port   = 8834
+    },
   }
-
-  # Useful when creating some security group or ACL rules
-  tcp_and_udp = [
-    "tcp",
-    "udp",
-  ]
 }

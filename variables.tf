@@ -10,12 +10,6 @@ variable "cdm_cloudwatch_bucket_name" {
   type        = string
 }
 
-variable "cdm_cidr" {
-  description = "The CIDR block on the CDM end of the site-to-site VPN tunnel (e.g. \"10.201.0.0/16\")."
-  nullable    = false
-  type        = string
-}
-
 variable "cdm_cloudtrail_assume_role_policy_description" {
   description = "The description to associate with the IAM policy that allows the CDM user to assume the IAM role that allows access to the CDM CloudTrail data (e.g., \"The IAM policy that allows the CDM user to assume the IAM role that allows access to the CDM CloudTrail data in the AccountName account.\")."
   nullable    = false
@@ -28,32 +22,8 @@ variable "cdm_cloudtrail_assume_role_policy_name" {
   type        = string
 }
 
-variable "cdm_dns_ips" {
-  description = "The DNS server IPs for the CDM environment (e.g. [\"100.200.75.25\", \"100.200.100.50\"])."
-  nullable    = false
-  type        = list(string)
-}
-
-variable "cdm_domains" {
-  description = "The domains for the CDM environment (e.g. [\"thulsa.example.com\", \"doom.example.com\", \"222.111.10.in-addr.arpa\"]).  The first domain listed should be the main CDM domain, as it will be used as an additional search domain for DNS lookups."
-  nullable    = false
-  type        = list(string)
-}
-
-variable "cdm_tunnel_ip" {
-  description = "The IP address of the site-to-site VPN tunnel endpoint on the CDM side (e.g. \"100.200.75.25\")."
-  nullable    = false
-  type        = string
-}
-
 variable "cdm_user_name" {
   description = "The user name of the CDM user who will assume the role to access the CloudTrail data."
-  nullable    = false
-  type        = string
-}
-
-variable "cdm_vpn_preshared_key" {
-  description = "The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and CDM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. \"abcdefghijklmnopqrstuvwxyz01234567._\")."
   nullable    = false
   type        = string
 }

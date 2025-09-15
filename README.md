@@ -2,14 +2,17 @@
 
 [![GitHub Build Status](https://github.com/cisagov/cool-sharedservices-cdm/workflows/build/badge.svg)](https://github.com/cisagov/cool-sharedservices-cdm/actions)
 
-This is a Terraform deployment for creating the site-to-site VPN tunnel between
-the COOL and the CDM (Continuous Diagnostics and Mitigation) environment in the
-COOL Shared Services account.  It also creates:
+This is a Terraform deployment for creating the necessary resources in
+the COOL Shared Services account to allow the required data to flow
+between the COOL and the CDM (Continuous Diagnostics and Mitigation)
+environment.  In particular it creates:
 
-- The resources necessary to stream the COOL Shared Services CloudWatch logs
-  into an S3 bucket where they can be imported into the CDM environment
-- An IAM user and role that allows access to the CloudTrail logs in the COOL
-  Shared Services account and the S3 bucket where the CloudWatch logs are stored
+- The resources necessary to stream the COOL Shared Services
+  CloudWatch logs into an S3 bucket where they can be imported into
+  the CDM environment
+- An IAM user and role that allows access to the CloudTrail logs in
+  the COOL Shared Services account and the S3 bucket where the
+  CloudWatch logs are stored
 
 This deployment should be applied immediately after
 [cisagov/cool-sharedservices-networking](https://github.com/cisagov/cool-sharedservices-networking),
@@ -35,16 +38,13 @@ or
 |------|---------|
 | terraform | ~> 1.1 |
 | aws | ~> 6.7 |
-| null | ~> 3.0 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
 | aws | ~> 6.7 |
-| aws.organizationsreadonly | ~> 6.7 |
 | aws.sharedservicesprovisionaccount | ~> 6.7 |
-| null | ~> 3.0 |
 | terraform | n/a |
 
 ## Modules ##
@@ -58,12 +58,6 @@ or
 | Name | Type |
 |------|------|
 | [aws_cloudwatch_log_subscription_filter.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_subscription_filter) | resource |
-| [aws_customer_gateway.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/customer_gateway) | resource |
-| [aws_ec2_transit_gateway_route.cdm_sharedservices](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route) | resource |
-| [aws_ec2_transit_gateway_route.cdm_vpn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route) | resource |
-| [aws_ec2_transit_gateway_route.sharedservices_vpn](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route) | resource |
-| [aws_ec2_transit_gateway_route_table.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route_table) | resource |
-| [aws_ec2_transit_gateway_route_table_association.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ec2_transit_gateway_route_table_association) | resource |
 | [aws_iam_policy.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.cloudwatch_to_firehose](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.firehose_to_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -75,23 +69,13 @@ or
 | [aws_iam_role_policy_attachment.firehose_to_s3](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.provisioncdm_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_kinesis_firehose_delivery_stream.cloudwatch_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kinesis_firehose_delivery_stream) | resource |
-| [aws_ram_resource_share.to_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share) | resource |
-| [aws_route53_resolver_endpoint.from_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_resolver_endpoint) | resource |
-| [aws_route53_resolver_endpoint.to_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_resolver_endpoint) | resource |
-| [aws_route53_resolver_rule.to_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_resolver_rule) | resource |
-| [aws_route53_resolver_rule_association.to_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_resolver_rule_association) | resource |
 | [aws_s3_bucket.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
 | [aws_s3_bucket_notification.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification) | resource |
 | [aws_s3_bucket_ownership_controls.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_ownership_controls) | resource |
 | [aws_s3_bucket_public_access_block.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
 | [aws_s3_bucket_server_side_encryption_configuration.cloudwatch](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
 | [aws_security_group.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_security_group.dns_from_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
-| [aws_security_group.dns_to_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_security_group_rule.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_security_group_rule.crowdstrike_falcon](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_security_group_rule.dns_from_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
-| [aws_security_group_rule.dns_to_cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
 | [aws_sns_topic.cloudwatch_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic) | resource |
 | [aws_sns_topic_policy.cloudwatch_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_policy) | resource |
 | [aws_sns_topic_subscription.cloudwatch_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription) | resource |
@@ -99,10 +83,6 @@ or
 | [aws_sqs_queue.cloudwatch_logs_dead_letter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue) | resource |
 | [aws_sqs_queue_policy.cloudwatch_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
 | [aws_sqs_queue_policy.cloudwatch_logs_dead_letter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy) | resource |
-| [aws_vpc_dhcp_options.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options) | resource |
-| [aws_vpc_dhcp_options_association.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options_association) | resource |
-| [aws_vpn_connection.cdm](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpn_connection) | resource |
-| [null_resource.break_association_with_default_route_table](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_caller_identity.sharedservices](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.allow_access_to_selected_cloudwatch_logs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -114,8 +94,6 @@ or
 | [aws_iam_policy_document.s3_to_sns](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns_to_sqs](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns_to_sqs_dead_letter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_organizations_organization.cool](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
-| [terraform_remote_state.master](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 | [terraform_remote_state.networking](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 | [terraform_remote_state.sharedservices](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 | [terraform_remote_state.users](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
@@ -125,15 +103,10 @@ or
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | aws\_region | The AWS region where the Shared Services account resides (e.g. "us-east-1"). | `string` | `"us-east-1"` | no |
-| cdm\_cidr | The CIDR block on the CDM end of the site-to-site VPN tunnel (e.g. "10.201.0.0/16"). | `string` | n/a | yes |
 | cdm\_cloudtrail\_assume\_role\_policy\_description | The description to associate with the IAM policy that allows the CDM user to assume the IAM role that allows access to the CDM CloudTrail data (e.g., "The IAM policy that allows the CDM user to assume the IAM role that allows access to the CDM CloudTrail data in the AccountName account."). | `string` | n/a | yes |
 | cdm\_cloudtrail\_assume\_role\_policy\_name | The name to associate with the IAM policy that allows the CDM user to assume the IAM role that allows access to the CDM CloudTrail data (e.g., "ACCTNAME-AssumeCdmCloudTrail"). | `string` | n/a | yes |
 | cdm\_cloudwatch\_bucket\_name | The name of the S3 bucket that will receive logs from CloudWatch so that they can later be ingested by CDM (e.g. "cdm-cloudwatch-logs"). | `string` | n/a | yes |
-| cdm\_dns\_ips | The DNS server IPs for the CDM environment (e.g. ["100.200.75.25", "100.200.100.50"]). | `list(string)` | n/a | yes |
-| cdm\_domains | The domains for the CDM environment (e.g. ["thulsa.example.com", "doom.example.com", "222.111.10.in-addr.arpa"]).  The first domain listed should be the main CDM domain, as it will be used as an additional search domain for DNS lookups. | `list(string)` | n/a | yes |
-| cdm\_tunnel\_ip | The IP address of the site-to-site VPN tunnel endpoint on the CDM side (e.g. "100.200.75.25"). | `string` | n/a | yes |
 | cdm\_user\_name | The user name of the CDM user who will assume the role to access the CloudTrail data. | `string` | n/a | yes |
-| cdm\_vpn\_preshared\_key | The pre-shared key to use for setting up the site-to-site VPN connection between the COOL and CDM.  This must be a string of 36 characters, which can include alphanumerics, periods, and underscores (e.g. "abcdefghijklmnopqrstuvwxyz01234567.\_"). | `string` | n/a | yes |
 | cloudwatch\_logs\_sns\_topic\_name | The name of the SNS topic that will receive notifications from the CDM S3 bucket when objects are added to it (e.g. "cdm-cloudwatch-logs"). | `string` | `"cdm-cloudwatch-logs"` | no |
 | cloudwatch\_logs\_sqs\_queue\_name | The name of the SQS queue that will receive CloudWatch log events when objects are added to the CDM S3 bucket (e.g. "cdm-cloudwatch-logs").  Note that this name will be appended with "-dead-letter" to create the name of the SQS dead-letter queue that receives events that could not be delivered to the main queue. | `string` | `"cdm-cloudwatch-logs"` | no |
 | cloudwatch\_policy\_description | The description to associate with the IAM policy that allows read access to the specific CloudWatch log streams in which CDM is interested. | `string` | `"Allows read access to the specific CloudWatch log streams in which CDM is interested."` | no |
@@ -168,19 +141,7 @@ or
 | cdm\_cloudwatch\_logs\_sns\_topic | The SNS topic that receives notifications from the CDM S3 bucket and is subscribed to by the SQS queue. |
 | cdm\_cloudwatch\_logs\_sqs\_dead\_letter\_queue | The SQS dead letter queue that receives events that could not be delivered to the main queue. |
 | cdm\_cloudwatch\_logs\_sqs\_queue | The SQS queue that receives CloudWatch log events when objects are added to the CDM S3 bucket. |
-| cdm\_customer\_gateway | The gateway for the site-to-site VPN connection to CDM. |
 | cdm\_security\_group | A security group that allows for all necessary communications between the CDM agents and the CDM CIDRs. |
-| cdm\_tgw\_route\_table | The custom Transit Gateway route table for the CDM VPN connection. |
-| cdm\_tgw\_route\_table\_association | The association between the CDM VPN connection and its custom Transit Gateway route table. |
-| cdm\_vpc\_dhcp\_options | The Shared Services VPC DHCP options.  These are identical to the DHCP options created in cisagov/cool-sharedservices-networking, except that we add the main CDM domain (var.cdm\_domains[0]) to the DNS search path. |
-| cdm\_vpc\_dhcp\_options\_association | The association between the Shared Services VPC and the CDM-enhanced DHCP options. |
-| cdm\_vpn\_connection | The site-to-site VPN connection to CDM. |
-| dns\_from\_cdm\_security\_group | The security group that allows DNS requests from the CDM environment. |
-| dns\_to\_cdm\_security\_group | The security group that allows DNS requests to the CDM environment. |
-| route53\_resolver\_endpoint\_from\_cdm | The Route53 resolver that allows the CDM environment to resolve DNS queries in our environment. |
-| route53\_resolver\_endpoint\_to\_cdm | The Route53 resolver that allows us to resolve DNS queries in the CDM environment. |
-| route53\_resolver\_rules\_to\_cdm | The Route53 resolver rules that allow us to resolve DNS queries in the CDM environment. |
-| route53\_resolver\_rules\_to\_cdm\_ram\_shares | The RAM shares for the Route53 resolver rules that allow us to resolve DNS queries in the CDM environment. |
 <!-- END_TF_DOCS -->
 
 ## Notes ##
