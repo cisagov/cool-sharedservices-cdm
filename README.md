@@ -1,6 +1,8 @@
 # cool-sharedservices-cdm #
 
 [![GitHub Build Status](https://github.com/cisagov/cool-sharedservices-cdm/workflows/build/badge.svg)](https://github.com/cisagov/cool-sharedservices-cdm/actions)
+[![License](https://img.shields.io/github/license/cisagov/cool-sharedservices-cdm)](https://spdx.org/licenses/)
+[![CodeQL](https://github.com/cisagov/cool-sharedservices-cdm/workflows/CodeQL/badge.svg)](https://github.com/cisagov/cool-sharedservices-cdm/actions/workflows/codeql-analysis.yml)
 
 This is a Terraform deployment for creating the necessary resources in
 the COOL Shared Services account to allow the required data to flow
